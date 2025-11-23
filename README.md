@@ -29,7 +29,7 @@ The name captures the project’s essence:
 This repository hosts an interactive implementation of the Hei-San-Ban, serving as an educational tool and a practical exploration of balanced base-3 computation.
 
 - Use it 👉 https://robsoncassiano.software/tools/heisanban?lang=en-us or here https://tryquetra.github.io/balanced-ternary-abacus/?lang=en
-- Repository 👉 https://github.com/RandintN/abaco-ternario-balanceado
+- Repository 👉 https://github.com/Tryquetra/balanced-ternary-abacus.git
 
 ### Features
 - Responsive, interactive UI (top/bottom beads touch the center bar)
@@ -56,7 +56,7 @@ O nome resume a essência do projeto:
 Este repositório contém uma implementação interativa do 平三盤, servindo como ferramenta educacional e exploração prática de computação em base 3 balanceada.
 
 - Use aqui 👉 https://robsoncassiano.software/tools/heisanban/?lang=pt-br ou aqui https://tryquetra.github.io/balanced-ternary-abacus/?lang=pt
-- Repositório 👉 https://github.com/RandintN/abaco-ternario-balanceado
+- Repositório 👉 https://github.com/Tryquetra/balanced-ternary-abacus.git
 
 ### Recursos
 - Interface responsiva e interativa (contas superiores/inferiores tocam a barra central)
