@@ -1,5 +1,21 @@
-# Allow all crawlers
+# Allow all crawlers, including AI agents and search engines
 User-agent: *
+Allow: /
+
+# Explicitly allow common AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-Web
 Allow: /
 
 # Sitemap for better indexing

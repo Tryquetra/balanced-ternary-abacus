@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tryquetra.github.io/balanced-ternary-abacus/</loc>
-    <lastmod>2025-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://tryquetra.github.io/balanced-ternary-abacus/?lang=pt-br"/>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://tryquetra.github.io/balanced-ternary-abacus/?lang=en-us"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tryquetra.github.io/balanced-ternary-abacus/"/>
+    <lastmod>2025-12-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>

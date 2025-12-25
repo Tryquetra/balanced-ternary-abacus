@@ -4,357 +4,455 @@
   Licensed under the MIT License. See the LICENSE file in the project root for full text.
 -->
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ábaco Ternário Balanceado</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ábaco Ternário Balanceado</title>
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicons/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+  <link rel="manifest" href="assets/favicons/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Ábaco Ternário Balanceado | Heisanban">
-    <meta name="description" content="Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.">
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Ábaco Ternário Balanceado | Heisanban">
+  <meta name="description"
+    content="Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Ábaco Ternário Balanceado | Heisanban">
-    <meta property="og:locale" content="pt_BR">
-    <meta property="og:title" content="Ábaco Ternário Balanceado | Heisanban">
-    <meta property="og:description" content="Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/triquetra.webp">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:alt" content="Símbolo Triquetra">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ábaco Ternário Balanceado | Heisanban">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Ábaco Ternário Balanceado | Heisanban">
+  <meta property="og:description"
+    content="Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.">
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/triquetra.webp">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Símbolo Triquetra">
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ábaco Ternário Balanceado | Heisanban">
-    <meta name="twitter:description" content="Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/triquetra.webp">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ábaco Ternário Balanceado | Heisanban">
+  <meta name="twitter:description"
+    content="Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.">
+  <meta name="twitter:image"
+    content="https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/triquetra.webp">
 
-    <!-- Resource Hints -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <!-- Resource Hints -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=20251109">
+  <!-- Canonical and Multi-language -->
+  <link rel="canonical" href="https://tryquetra.github.io/balanced-ternary-abacus/">
+  <link rel="alternate" hreflang="pt-br" href="https://tryquetra.github.io/balanced-ternary-abacus/?lang=pt-br">
+  <link rel="alternate" hreflang="en-us" href="https://tryquetra.github.io/balanced-ternary-abacus/?lang=en-us">
+  <link rel="alternate" hreflang="x-default" href="https://tryquetra.github.io/balanced-ternary-abacus/">
 
-    <!-- JSON-LD Markup -->
-    <script type="application/ld+json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20251109">
+
+  <!-- JSON-LD Markup -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Ábaco Ternário Balanceado | Heisanban",
-      "description": "Ábaco Ternário Balanceado interativo. Clique nas contas para somar (+1) ou subtrair (-1) e veja a notação matemática renderizada com LaTeX.",
-      "url": "https://randintn.github.io/abaco-ternario-balanceado/",
-      "applicationCategory": "EducationalApplication, GameApplication",
-      "operatingSystem": "Web",
-      "author": {
-        "@type": "Person",
-        "name": "Robson Cassiano",
-        "url": "https://github.com/RandintN"
-      },
-      "license": "https://opensource.org/licenses/MIT",
-      "image": "https://raw.githubusercontent.com/RandintN/abaco-ternario-balanceado/refs/heads/main/assets/triquetra.webp",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": [
-        "Simulação de ábaco ternário balanceado",
-        "Renderização de notação matemática com LaTeX",
-        "Tutorial interativo de soma e subtração",
-        "Suporte a múltiplos idiomas (PT/EN)",
-        "Modo escuro e claro"
-      ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "bestRating": "5",
-        "ratingCount": "12"
-      }
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://tryquetra.github.io/balanced-ternary-abacus/#webapp",
+          "name": "Hei-San-Ban: Ábaco Ternário Balanceado",
+          "alternateName": "Balanced Ternary Abacus",
+          "description": "Explorador interativo de lógica ternária balanceada. Aprenda computação ternária através de uma simulação visual de ábaco.",
+          "url": "https://tryquetra.github.io/balanced-ternary-abacus/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Web",
+          "author": {
+            "@type": "Person",
+            "name": "Robson Cassiano",
+            "url": "https://eu.robsoncassiano.software"
+          },
+          "license": "https://opensource.org/licenses/MIT",
+          "image": "https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/triquetra.webp",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Balanced ternary logic simulation",
+            "Real-time LaTeX math rendering",
+            "Interactive addition and subtraction tutorials",
+            "Multi-language support (PT-BR/EN-US)",
+            "PWA support for offline use"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "O que é um ábaco ternário balanceado?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "É um instrumento de cálculo que utiliza a base 3 com os dígitos -1, 0 e +1, em vez da base decimal ou binária comum. É fundamental para entender sistemas como o computador soviético Setun."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como funciona a lógica ternária balanceada?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Diferente do binário (0, 1), a lógica ternária balanceada utiliza três estados: negativo (-1), neutro (0) e positivo (+1). Isso permite representar números negativos sem a necessidade de um bit de sinal separado."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
-
-    <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": "Como somar no ábaco ternário balanceado",
-        "description": "Aprenda a realizar somas utilizando a lógica ternária balanceada no ábaco.",
-        "step": [
-          {
-            "@type": "HowToStep",
-            "name": "Configurar o primeiro número",
-            "text": "Clique nas contas para formar o valor inicial desejado."
-          },
-          {
-            "@type": "HowToStep",
-            "name": "Adicionar o segundo número",
-            "text": "Comece pela haste da direita (3^0). Ative a conta de cima (+1) para somar ou a de baixo (-1) para subtrair."
-          },
-          {
-            "@type": "HowToStep",
-            "name": "Ajustar os transportes (vai-um)",
-            "text": "Se uma haste ficar com duas contas do mesmo lado, converta usando dígitos balanceados e carregue para a próxima haste."
-          }
-        ]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": "Como subtrair no ábaco ternário balanceado",
-        "description": "Aprenda a realizar subtrações utilizando a lógica ternária balanceada no ábaco.",
-        "step": [
-          {
-            "@type": "HowToStep",
-            "name": "Configurar o minuendo",
-            "text": "Represente o valor inicial (A) no ábaco."
-          },
-          {
-            "@type": "HowToStep",
-            "name": "Subtrair o subtraendo",
-            "text": "Comece pela haste da direita. Ative a conta de baixo (-1) para cada unidade a subtrair."
-          },
-          {
-            "@type": "HowToStep",
-            "name": "Ajustar os empréstimos",
-            "text": "Se necessário, converta usando os dígitos balanceados e realize o empréstimo para a próxima haste."
-          }
-        ]
-      }
-    ]
-    </script>
 </head>
-<body class="bg-gray-900 text-gray-100 flex flex-col justify-center items-center min-h-screen">
-<!-- Top bar: seletor de idioma à esquerda, e à direita: menu → GitHub → tema -->
-<div class="top-controls" role="navigation" aria-label="Top controls">
-  <div class="language-switcher" aria-label="Language selector">
-    <label for="lang-select" class="visually-hidden">Language</label>
-    <select id="lang-select" aria-label="Language selector">
-      <option value="en">EN</option>
-      <option value="pt">PT</option>
-    </select>
-  </div>
 
-  <div class="right-controls">
-    <!-- Menu de apps -->
-    <div class="menu-wrapper">
-      <button
-        id="app-menu-toggle"
-        class="icon-button"
-        aria-haspopup="true"
-        aria-expanded="false"
-        aria-controls="app-menu"
-        title="Menu"
-        type="button"
-      >
-        <!-- Ícone de grade 3×3 (9 círculos) -->
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
-          <g fill="currentColor">
-            <circle cx="5" cy="5" r="2"/>
-            <circle cx="12" cy="5" r="2"/>
-            <circle cx="19" cy="5" r="2"/>
-            <circle cx="5" cy="12" r="2"/>
-            <circle cx="12" cy="12" r="2"/>
-            <circle cx="19" cy="12" r="2"/>
-            <circle cx="5" cy="19" r="2"/>
-            <circle cx="12" cy="19" r="2"/>
-            <circle cx="19" cy="19" r="2"/>
-          </g>
+<body class="bg-gray-900 text-gray-100 flex flex-col justify-center items-center min-h-screen">
+  <!-- Top bar: seletor de idioma à esquerda, e à direita: menu → GitHub → tema -->
+  <div class="top-controls" role="navigation" aria-label="Top controls">
+    <header class="language-switcher" aria-label="Language selector">
+      <label for="lang-select" class="visually-hidden">Language</label>
+      <select id="lang-select" aria-label="Language selector">
+        <option value="en">EN</option>
+        <option value="pt">PT</option>
+      </select>
+    </header>
+
+    <div class="right-controls">
+      <!-- Menu de apps -->
+      <div class="menu-wrapper">
+        <button id="app-menu-toggle" class="icon-button" aria-haspopup="true" aria-expanded="false"
+          aria-controls="app-menu" title="Menu" type="button">
+          <!-- Ícone de grade 3×3 (9 círculos) -->
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <g fill="currentColor">
+              <circle cx="5" cy="5" r="2" />
+              <circle cx="12" cy="5" r="2" />
+              <circle cx="19" cy="5" r="2" />
+              <circle cx="5" cy="12" r="2" />
+              <circle cx="12" cy="12" r="2" />
+              <circle cx="19" cy="12" r="2" />
+              <circle cx="5" cy="19" r="2" />
+              <circle cx="12" cy="19" r="2" />
+              <circle cx="19" cy="19" r="2" />
+            </g>
+          </svg>
+        </button>
+
+        <div id="app-menu" class="menu-dropdown" role="menu" aria-labelledby="app-menu-toggle" hidden>
+          <!-- 5 links exatamente, todos abrindo em nova aba com noopener -->
+          <a role="menuitem" class="menu-item" href="https://github.com/Tryquetra/setun-online-simulator?lang=en-us"
+            target="_blank" rel="noopener" data-lang-key="menuSetunSimulator" data-accepts-lang="true">Setun
+            Simulator</a>
+          <a role="menuitem" class="menu-item" href="https://tryquetra.github.io/ternary-synchronous-clock/"
+            target="_blank" rel="noopener" data-lang-key="menuTernaryClock">Synchronous ternary clock</a>
+          <a role="menuitem" class="menu-item" href="https://robsoncassiano.software/tools/heisanban?lang=en-us"
+            target="_blank" rel="noopener" data-lang-key="menuHeiSanban" data-accepts-lang="true">HeiSanban</a>
+          <a role="menuitem" class="menu-item" href="https://tryquetra.github.io/balanced-ternary-text-encoder/"
+            target="_blank" rel="noopener" data-lang-key="menuBalancedTextEncoder">Balanced ternary text encoder</a>
+          <a role="menuitem" class="menu-item" href="https://tryquetra.github.io/radix-converter-balanced-ternary/"
+            target="_blank" rel="noopener" data-lang-key="menuRadixConverter">Base converter (balanced ternary)</a>
+        </div>
+      </div>
+
+      <!-- Botão do GitHub (placeholder) -->
+      <a id="github-btn" class="github-button" href="https://tryquetra.github.io/balanced-ternary-abacus/"
+        target="_blank" rel="noopener" aria-label="GitHub repository">
+        <svg viewBox="0 0 16 16" width="22" height="22" fill="currentColor" aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+        </svg>
+      </a>
+
+      <!-- Botão de tema (placeholder) -->
+      <button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle theme" title="Theme">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path fill="currentColor" d="M12 3a9 9 0 0 0 0 18 9 9 0 1 1 0-18z" />
         </svg>
       </button>
+    </div>
+  </div>
+  <a href="https://tryquetra.github.io/balanced-ternary-abacus/" class="github-link" target="_blank" rel="noopener"
+    aria-label="GitHub repository">
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+    </svg>
+  </a>
+  <img src="assets/triquetra.webp" alt="Símbolo Triquetra" class="triquetra-logo" loading="lazy" decoding="async"
+    fetchpriority="high">
+  <main class="container mx-auto p-8 bg-gray-800 rounded-2xl shadow-lg">
+    <button id="translation-button" class="translation-button">EN</button>
+    <h1 id="main-title" class="text-3xl font-bold mb-6 text-center text-teal-300">Ábaco Ternário Balanceado</h1>
 
-      <div id="app-menu" class="menu-dropdown" role="menu" aria-labelledby="app-menu-toggle" hidden>
-        <!-- 5 links exatamente, todos abrindo em nova aba com noopener -->
-        <a role="menuitem" class="menu-item" href="https://github.com/Tryquetra/setun-online-simulator?lang=en-us" target="_blank" rel="noopener" data-lang-key="menuSetunSimulator" data-accepts-lang="true">Setun Simulator</a>
-        <a role="menuitem" class="menu-item" href="https://tryquetra.github.io/ternary-synchronous-clock/" target="_blank" rel="noopener" data-lang-key="menuTernaryClock">Synchronous ternary clock</a>
-        <a role="menuitem" class="menu-item" href="https://robsoncassiano.software/tools/heisanban?lang=en-us" target="_blank" rel="noopener" data-lang-key="menuHeiSanban" data-accepts-lang="true">HeiSanban</a>
-        <a role="menuitem" class="menu-item" href="https://tryquetra.github.io/balanced-ternary-text-encoder/" target="_blank" rel="noopener" data-lang-key="menuBalancedTextEncoder">Balanced ternary text encoder</a>
-        <a role="menuitem" class="menu-item" href="https://tryquetra.github.io/radix-converter-balanced-ternary/" target="_blank" rel="noopener" data-lang-key="menuRadixConverter">Base converter (balanced ternary)</a>
+    <!-- Answer Engine Optimization: Core Definitions (Visually hidden but crawlable) -->
+    <div class="sr-only" aria-hidden="true">
+      <h2>O que é o Hei-San-Ban?</h2>
+      <p>Hei-San-Ban é um simulador de ábaco ternário balanceado projetado para fins educacionais. Ele demonstra como
+        números são representados usando a base 3 com dígitos {-1, 0, 1}.</p>
+      <h2>What is Balanced Ternary?</h2>
+      <p>Balanced ternary is a non-standard positional numeral system. It is a ternary system where digits have the
+        values -1, 0, and 1. It is used in some computing architectures like the Setun computer.</p>
+    </div>
+
+    <p id="description" class="text-center text-gray-400 mb-8">Clique nas contas para somar (+1) ou subtrair (-1) e ver
+      a representação matemática.</p>
+
+    <div class="abacus flex justify-center p-4 rounded-xl relative" aria-label="Simulador de Ábaco">
+      <div class="center-bar"></div>
+      <div class="abacus-rods flex" id="abacus-rods-container">
+        <!-- Rods will be dynamically generated by JavaScript -->
+      </div>
+      <div class="value-labels" aria-hidden="true">
+        <span style="transform: translateY(-1rem);">1</span>
+        <span>0</span>
+        <span style="transform: translateY(1.2rem);">-1</span>
       </div>
     </div>
 
-    <!-- Botão do GitHub (placeholder) -->
-    <a id="github-btn" class="github-button" href="https://tryquetra.github.io/balanced-ternary-abacus/" target="_blank" rel="noopener" aria-label="GitHub repository">
-      <svg viewBox="0 0 16 16" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-      </svg>
-    </a>
-
-    <!-- Botão de tema (placeholder) -->
-    <button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle theme" title="Theme">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-        <path fill="currentColor" d="M12 3a9 9 0 0 0 0 18 9 9 0 1 1 0-18z"/>
-      </svg>
-    </button>
-  </div>
-</div>
-<a href="https://tryquetra.github.io/balanced-ternary-abacus/" class="github-link" target="_blank" rel="noopener" aria-label="GitHub repository">
-    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-    </svg>
-</a>
-<img src="assets/triquetra.webp" alt="Símbolo Triquetra" class="triquetra-logo" loading="lazy" decoding="async" fetchpriority="high">
-<div class="container mx-auto p-8 bg-gray-800 rounded-2xl shadow-lg">
-    <button id="translation-button" class="translation-button">EN</button>
-    <h1 id="main-title" class="text-3xl font-bold mb-6 text-center text-teal-300">Ábaco Ternário Balanceado</h1>
-    <p id="description" class="text-center text-gray-400 mb-8">Clique nas contas para somar (+1) ou subtrair (-1) e ver a representação matemática.</p>
-
-    <div class="abacus flex justify-center p-4 rounded-xl relative">
-        <div class="center-bar"></div>
-        <div class="abacus-rods flex" id="abacus-rods-container">
-            <!-- Rods will be dynamically generated by JavaScript -->
-        </div>
-        <div class="value-labels">
-            <span style="transform: translateY(-1rem);">1</span>
-            <span>0</span>
-            <span style="transform: translateY(1.2rem);">-1</span>
-        </div>
-    </div>
-
     <div class="mt-8 text-center">
-        <div class="flex items-center justify-center gap-3 mb-2">
-            <h2 id="total-title" class="text-xl font-semibold text-teal-300">Valor Total</h2>
-            <button id="clear-button" class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Limpar</button>
-            <button id="invert-button" class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Inverter</button>
-        </div>
-        <div id="total-value" class="abacus-value text-4xl">0</div>
-        <div id="math-notation" class="text-gray-400 mt-4 text-sm font-mono min-h-[1.25rem]"></div>
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <h2 id="total-title" class="text-xl font-semibold text-teal-300">Valor Total</h2>
+        <button id="clear-button"
+          class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Limpar</button>
+        <button id="invert-button"
+          class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Inverter</button>
+      </div>
+      <div id="total-value" class="abacus-value text-4xl" aria-live="polite">0</div>
+      <div id="math-notation" class="text-gray-400 mt-4 text-sm font-mono min-h-[1.25rem]"></div>
     </div>
 
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-center text-sm text-gray-400">
-        <button id="tutorial-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">👉 Tutorial de como usar o ábaco</button>
-        <button id="sum-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">➕ Como somar</button>
-        <button id="sub-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">➖ Como subtrair</button>
-        <button id="soroban-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">💡 Dicas do Heisanban</button>
-    </div>
+    <nav class="mt-8 flex flex-wrap items-center justify-center gap-6 text-center text-sm text-gray-400"
+      aria-label="Tutoriais">
+      <button id="tutorial-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">👉 Tutorial de como usar
+        o ábaco</button>
+      <button id="sum-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">➕ Como somar</button>
+      <button id="sub-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">➖ Como subtrair</button>
+      <button id="soroban-toggle" class="text-teal-300 hover:text-teal-400 transition-colors">💡 Dicas do
+        Heisanban</button>
+    </nav>
 
-    <div id="tutorial-content" class="hidden mt-8 p-6 bg-gray-700 rounded-lg">
-        <h2 id="tutorial-title" class="text-2xl font-semibold mb-4 text-white">Tutorial do Ábaco de Lógica Ternária Balanceada</h2>
-        <p id="tutorial-p1" class="text-gray-300 mb-4">Este guia rápido explica como usar o ábaco interativo de lógica ternária balanceada, que utiliza os valores <b>1</b> (positivo), <b>0</b> (neutro) e <b>-1</b> (negativo) para representar números.</p>
-        <p id="tutorial-p2" class="text-gray-300 mb-4">O ábaco é composto por várias hastes, onde cada uma representa uma potência de 3. As hastes são organizadas da direita para a esquerda, começando com \(3^0\).</p>
-        <ul class="list-disc list-inside text-gray-300 space-y-2 mb-4">
-            <li id="tutorial-li1"><strong class="text-teal-300">Primeira haste (da direita):</strong> \(3^0\) (valor 1)</li>
-            <li id="tutorial-li2"><strong class="text-teal-300">Segunda haste:</strong> \(3^1\) (valor 3)</li>
-            <li id="tutorial-li3"><strong class="text-teal-300">Terceira haste:</strong> \(3^2\) (valor 9)</li>
-            <li id="tutorial-li4">e assim por diante...</li>
-        </ul>
+    <section id="tutorial-content" class="hidden mt-8 p-6 bg-gray-700 rounded-lg">
+      <h2 id="tutorial-title" class="text-2xl font-semibold mb-4 text-white">Tutorial do Ábaco de Lógica Ternária
+        Balanceada</h2>
+      <p id="tutorial-p1" class="text-gray-300 mb-4">Este guia rápido explica como usar o ábaco interativo de lógica
+        ternária balanceada, que utiliza os valores <b>1</b> (positivo), <b>0</b> (neutro) e <b>-1</b> (negativo) para
+        representar números.</p>
+      <p id="tutorial-p2" class="text-gray-300 mb-4">O ábaco é composto por várias hastes, onde cada uma representa uma
+        potência de 3. As hastes são organizadas da direita para a esquerda, começando com \(3^0\).</p>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 mb-4">
+        <li id="tutorial-li1"><strong class="text-teal-300">Primeira haste (da direita):</strong> \(3^0\) (valor 1)</li>
+        <li id="tutorial-li2"><strong class="text-teal-300">Segunda haste:</strong> \(3^1\) (valor 3)</li>
+        <li id="tutorial-li3"><strong class="text-teal-300">Terceira haste:</strong> \(3^2\) (valor 9)</li>
+        <li id="tutorial-li4">e assim por diante...</li>
+      </ul>
 
-        <h3 id="tutorial-h3-1" class="text-xl font-semibold text-white mb-2">Representando Valores com as Contas</h3>
-        <p id="tutorial-p3" class="text-gray-300 mb-4">Cada haste tem duas contas: uma na parte superior e outra na inferior. A barra horizontal central é a referência.</p>
-        <ul class="list-disc list-inside text-gray-300 space-y-2 mb-4">
-            <li id="tutorial-li5">Para representar o valor <b>1</b> (positivo): Clique na conta superior para que ela encoste na barra central.</li>
-            <li id="tutorial-li6">Para representar o valor <b>-1</b> (negativo): Clique na conta inferior para que ela encoste na barra central.</li>
-            <li id="tutorial-li7">Para representar o valor <b>0</b> (neutro): Deixe as contas distantes da barra central.</li>
-            <li id="tutorial-li8">Uma característica especial do seu ábaco é que você pode representar o <b>0</b> de duas maneiras:</li>
-        </ul>
-        <ol class="list-decimal list-inside text-gray-300 space-y-2 mb-4">
-            <li id="tutorial-li9"><strong class="text-teal-300">Forma "vazia":</strong> Nenhuma conta toca a barra central.</li>
-            <li id="tutorial-li10"><strong class="text-teal-300">Forma "balanceada":</strong> Ambas as contas (a superior e a inferior) tocam a barra, já que a soma de \(1 + (-1)\) resulta em \(0\).</li>
-        </ol>
+      <h3 id="tutorial-h3-1" class="text-xl font-semibold text-white mb-2">Representando Valores com as Contas</h3>
+      <p id="tutorial-p3" class="text-gray-300 mb-4">Cada haste tem duas contas: uma na parte superior e outra na
+        inferior. A barra horizontal central é a referência.</p>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 mb-4">
+        <li id="tutorial-li5">Para representar o valor <b>1</b> (positivo): Clique na conta superior para que ela
+          encoste na barra central.</li>
+        <li id="tutorial-li6">Para representar o valor <b>-1</b> (negativo): Clique na conta inferior para que ela
+          encoste na barra central.</li>
+        <li id="tutorial-li7">Para representar o valor <b>0</b> (neutro): Deixe as contas distantes da barra central.
+        </li>
+        <li id="tutorial-li8">Uma característica especial do seu ábaco é que você pode representar o <b>0</b> de duas
+          maneiras:</li>
+      </ul>
+      <ol class="list-decimal list-inside text-gray-300 space-y-2 mb-4">
+        <li id="tutorial-li9"><strong class="text-teal-300">Forma "vazia":</strong> Nenhuma conta toca a barra central.
+        </li>
+        <li id="tutorial-li10"><strong class="text-teal-300">Forma "balanceada":</strong> Ambas as contas (a superior e
+          a inferior) tocam a barra, já que a soma de \(1 + (-1)\) resulta em \(0\).</li>
+      </ol>
 
-        <h3 id="tutorial-h3-2" class="text-xl font-semibold text-white mb-2">Lendo o Valor Total</h3>
-        <p id="tutorial-p4" class="text-gray-300 mb-4">O valor total do ábaco é a soma dos valores de cada haste. A aplicação calcula e exibe automaticamente o valor na base 10 (decimal). A notação matemática, como \(1 \cdot 3^1 + (-1) \cdot 3^0\), também é mostrada para ajudar a visualizar o cálculo.</p>
-    </div>
-</div>
+      <h3 id="tutorial-h3-2" class="text-xl font-semibold text-white mb-2">Lendo o Valor Total</h3>
+      <p id="tutorial-p4" class="text-gray-300 mb-4">O valor total do ábaco é a soma dos valores de cada haste. A
+        aplicação calcula e exibe automaticamente o valor na base 10 (decimal). A notação matemática, como \(1 \cdot 3^1
+        + (-1) \cdot 3^0\), também é mostrada para ajudar a visualizar o cálculo.</p>
+    </section>
 
-<div id="sum-content" class="hidden mt-6 p-6 bg-gray-700 rounded-lg">
-    <h2 id="footer-sum-title" class="text-xl font-semibold text-teal-300 mb-3">Como somar no ábaco</h2>
-    <p id="footer-sum-p1" class="mb-3">Para somar dois números, você pode usar o ábaco como uma calculadora manual: primeiro represente o primeiro número; depois aplique o segundo número haste a haste.</p>
-    <ol class="list-decimal list-inside space-y-2">
-        <li id="footer-sum-li1"><strong class="text-teal-300">1) Configure o primeiro número:</strong> Clique nas contas para formar o valor desejado. O total em decimal aparece acima.</li>
-        <li id="footer-sum-li2"><strong class="text-teal-300">2) Adicione o segundo número:</strong> Comece pela haste da direita (\(3^0\)). Para cada unidade a somar, ative a conta de cima (\(+1\)); para cada unidade a subtrair, ative a de baixo (\(-1\)).</li>
-        <li id="footer-sum-li3"><strong class="text-teal-300">3) Ajuste os "vai-um" balanceados:</strong> Se uma haste ficar com duas contas ativas do mesmo lado (equivalente a \(+2\) ou \(-2\)), troque por um dígito balanceado e carregue para a próxima haste: \(+2 = -1 + 1\cdot 3\) e \(-2 = 1 - 1\cdot 3\).</li>
-    </ol>
+    <section id="sum-content" class="hidden mt-6 p-6 bg-gray-700 rounded-lg">
+      <h2 id="footer-sum-title" class="text-xl font-semibold text-teal-300 mb-3">Como somar no ábaco</h2>
+      <p id="footer-sum-p1" class="mb-3">Para somar dois números, você pode usar o ábaco como uma calculadora manual:
+        primeiro represente o primeiro número; depois aplique o segundo número haste a haste.</p>
+      <ol class="list-decimal list-inside space-y-2">
+        <li id="footer-sum-li1"><strong class="text-teal-300">1) Configure o primeiro número:</strong> Clique nas contas
+          para formar o valor desejado. O total em decimal aparece acima.</li>
+        <li id="footer-sum-li2"><strong class="text-teal-300">2) Adicione o segundo número:</strong> Comece pela haste
+          da direita (\(3^0\)). Para cada unidade a somar, ative a conta de cima (\(+1\)); para cada unidade a subtrair,
+          ative a de baixo (\(-1\)).</li>
+        <li id="footer-sum-li3"><strong class="text-teal-300">3) Ajuste os "vai-um" balanceados:</strong> Se uma haste
+          ficar com duas contas ativas do mesmo lado (equivalente a \(+2\) ou \(-2\)), troque por um dígito balanceado e
+          carregue para a próxima haste: \(+2 = -1 + 1\cdot 3\) e \(-2 = 1 - 1\cdot 3\).</li>
+      </ol>
 
-    <h3 id="footer-sum-table-title" class="text-lg font-semibold text-white mt-5 mb-2">Tabela de combinações para somar</h3>
-    <div class="overflow-x-auto">
+      <h3 id="footer-sum-table-title" class="text-lg font-semibold text-white mt-5 mb-2">Tabela de combinações para
+        somar</h3>
+      <div class="overflow-x-auto">
         <table class="min-w-full text-sm text-gray-200">
-            <thead>
-                <tr class="text-teal-300 border-b border-gray-600">
-                    <th id="footer-sum-col1" class="text-left py-2 pr-4">Alvo (+n)</th>
-                    <th id="footer-sum-col2" class="text-left py-2">Combinação em potências de 3</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-700">
-                <tr><td class="py-1 pr-4">+1</td><td class="py-1">\(+1\)</td></tr>
-                <tr><td class="py-1 pr-4">+2</td><td class="py-1">\(+3 - 1\)</td></tr>
-                <tr><td class="py-1 pr-4">+3</td><td class="py-1">\(+3\)</td></tr>
-                <tr><td class="py-1 pr-4">+4</td><td class="py-1">\(+3 + 1\)</td></tr>
-                <tr><td class="py-1 pr-4">+5</td><td class="py-1">\(+9 - 3 - 1\)</td></tr>
-                <tr><td class="py-1 pr-4">+6</td><td class="py-1">\(+9 - 3\)</td></tr>
-                <tr><td class="py-1 pr-4">+7</td><td class="py-1">\(+9 - 3 + 1\)</td></tr>
-                <tr><td class="py-1 pr-4">+8</td><td class="py-1">\(+9 - 1\)</td></tr>
-                <tr><td class="py-1 pr-4">+9</td><td class="py-1">\(+9\)</td></tr>
-            </tbody>
+          <thead>
+            <tr class="text-teal-300 border-b border-gray-600">
+              <th id="footer-sum-col1" class="text-left py-2 pr-4">Alvo (+n)</th>
+              <th id="footer-sum-col2" class="text-left py-2">Combinação em potências de 3</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-700">
+            <tr>
+              <td class="py-1 pr-4">+1</td>
+              <td class="py-1">\(+1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+2</td>
+              <td class="py-1">\(+3 - 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+3</td>
+              <td class="py-1">\(+3\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+4</td>
+              <td class="py-1">\(+3 + 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+5</td>
+              <td class="py-1">\(+9 - 3 - 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+6</td>
+              <td class="py-1">\(+9 - 3\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+7</td>
+              <td class="py-1">\(+9 - 3 + 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+8</td>
+              <td class="py-1">\(+9 - 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">+9</td>
+              <td class="py-1">\(+9\)</td>
+            </tr>
+          </tbody>
         </table>
-    </div>
+      </div>
 
-    <p id="footer-sum-note" class="mt-3 text-gray-400 text-sm">Dica: quando ambas as contas tocam a barra na mesma haste, o valor local é \(0\) — isso ajuda a enxergar combinações como \(1 + (-1) = 0\). Você pode conferir o resultado na leitura em decimal e na notação matemática.</p>
-</div>
+      <p id="footer-sum-note" class="mt-3 text-gray-400 text-sm">Dica: quando ambas as contas tocam a barra na mesma
+        haste, o valor local é \(0\) — isso ajuda a enxergar combinações como \(1 + (-1) = 0\). Você pode conferir o
+        resultado na leitura em decimal e na notação matemática.</p>
+    </section>
 
-<div id="sub-content" class="hidden mt-6 p-6 bg-gray-700 rounded-lg">
-    <h2 id="footer-sub-title" class="text-xl font-semibold text-teal-300 mb-3">Como subtrair no ábaco</h2>
-    <p id="footer-sub-p1" class="mb-3">Para subtrair \(B\) de \(A\), você pode pensar como soma com o oposto: some \(-B\). Outra forma é aplicar as unidades a subtrair haste a haste.</p>
-    <ol class="list-decimal list-inside space-y-2">
-        <li id="footer-sub-li1"><strong class="text-teal-300">1) Configure o minuendo \(A\):</strong> Represente \(A\) no ábaco. O total em decimal aparece acima.</li>
-        <li id="footer-sub-li2"><strong class="text-teal-300">2) Subtraia o subtraendo \(B\):</strong> Comece pela haste da direita (\(3^0\)). Para cada unidade a subtrair, ative a conta de baixo (\(-1\)); para desfazer uma unidade, ative a de cima (\(+1\)).</li>
-        <li id="footer-sub-li3"><strong class="text-teal-300">3) Ajuste os "empresta" balanceados:</strong> Se uma haste chegar a \(-2\) ou \(+2\), converta usando os dígitos balanceados e faça o empréstimo/transporte:
-            \(-2 = 1 - 1\cdot 3\) (empresta \(1\) para a próxima haste) e \(+2 = -1 + 1\cdot 3\) (carrega \(1\) para a próxima haste).</li>
-    </ol>
+    <section id="sub-content" class="hidden mt-6 p-6 bg-gray-700 rounded-lg">
+      <h2 id="footer-sub-title" class="text-xl font-semibold text-teal-300 mb-3">Como subtrair no ábaco</h2>
+      <p id="footer-sub-p1" class="mb-3">Para subtrair \(B\) de \(A\), você pode pensar como soma com o oposto: some
+        \(-B\). Outra forma é aplicar as unidades a subtrair haste a haste.</p>
+      <ol class="list-decimal list-inside space-y-2">
+        <li id="footer-sub-li1"><strong class="text-teal-300">1) Configure o minuendo \(A\):</strong> Represente \(A\)
+          no ábaco. O total em decimal aparece acima.</li>
+        <li id="footer-sub-li2"><strong class="text-teal-300">2) Subtraia o subtraendo \(B\):</strong> Comece pela haste
+          da direita (\(3^0\)). Para cada unidade a subtrair, ative a conta de baixo (\(-1\)); para desfazer uma
+          unidade, ative a de cima (\(+1\)).</li>
+        <li id="footer-sub-li3"><strong class="text-teal-300">3) Ajuste os "empresta" balanceados:</strong> Se uma haste
+          chegar a \(-2\) ou \(+2\), converta usando os dígitos balanceados e faça o empréstimo/transporte:
+          \(-2 = 1 - 1\cdot 3\) (empresta \(1\) para a próxima haste) e \(+2 = -1 + 1\cdot 3\) (carrega \(1\) para a
+          próxima haste).</li>
+      </ol>
 
-    <h3 id="footer-sub-table-title" class="text-lg font-semibold text-white mt-5 mb-2">Tabela de combinações para subtrair</h3>
-    <div class="overflow-x-auto">
+      <h3 id="footer-sub-table-title" class="text-lg font-semibold text-white mt-5 mb-2">Tabela de combinações para
+        subtrair</h3>
+      <div class="overflow-x-auto">
         <table class="min-w-full text-sm text-gray-200">
-            <thead>
-                <tr class="text-teal-300 border-b border-gray-600">
-                    <th id="footer-sub-col1" class="text-left py-2 pr-4">Alvo (-n)</th>
-                    <th id="footer-sub-col2" class="text-left py-2">Combinação em potências de 3</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-700">
-                <tr><td class="py-1 pr-4">-1</td><td class="py-1">\(-1\)</td></tr>
-                <tr><td class="py-1 pr-4">-2</td><td class="py-1">\(-3 + 1\)</td></tr>
-                <tr><td class="py-1 pr-4">-3</td><td class="py-1">\(-3\)</td></tr>
-                <tr><td class="py-1 pr-4">-4</td><td class="py-1">\(-3 - 1\)</td></tr>
-                <tr><td class="py-1 pr-4">-5</td><td class="py-1">\(-9 + 3 + 1\)</td></tr>
-                <tr><td class="py-1 pr-4">-6</td><td class="py-1">\(-9 + 3\)</td></tr>
-                <tr><td class="py-1 pr-4">-7</td><td class="py-1">\(-9 + 3 - 1\)</td></tr>
-                <tr><td class="py-1 pr-4">-8</td><td class="py-1">\(-9 + 1\)</td></tr>
-                <tr><td class="py-1 pr-4">-9</td><td class="py-1">\(-9\)</td></tr>
-            </tbody>
+          <thead>
+            <tr class="text-teal-300 border-b border-gray-600">
+              <th id="footer-sub-col1" class="text-left py-2 pr-4">Alvo (-n)</th>
+              <th id="footer-sub-col2" class="text-left py-2">Combinação em potências de 3</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-700">
+            <tr>
+              <td class="py-1 pr-4">-1</td>
+              <td class="py-1">\(-1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-2</td>
+              <td class="py-1">\(-3 + 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-3</td>
+              <td class="py-1">\(-3\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-4</td>
+              <td class="py-1">\(-3 - 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-5</td>
+              <td class="py-1">\(-9 + 3 + 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-6</td>
+              <td class="py-1">\(-9 + 3\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-7</td>
+              <td class="py-1">\(-9 + 3 - 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-8</td>
+              <td class="py-1">\(-9 + 1\)</td>
+            </tr>
+            <tr>
+              <td class="py-1 pr-4">-9</td>
+              <td class="py-1">\(-9\)</td>
+            </tr>
+          </tbody>
         </table>
-    </div>
+      </div>
 
-    <p id="footer-sub-note" class="mt-3 text-gray-400 text-sm">Dica: subtrair é o mesmo que somar o negativo. Para formar \(-B\), inverta os sinais dos dígitos de \(B\) (\(1 \leftrightarrow -1\)) e então some.</p>
-</div>
+      <p id="footer-sub-note" class="mt-3 text-gray-400 text-sm">Dica: subtrair é o mesmo que somar o negativo. Para
+        formar \(-B\), inverta os sinais dos dígitos de \(B\) (\(1 \leftrightarrow -1\)) e então some.</p>
+    </section>
 
-<div id="soroban-content" class="hidden mt-6 p-6 bg-gray-700 rounded-lg">
-    <h2 id="soroban-title" class="text-xl font-semibold text-teal-300 mb-3">Dicas inspiradas no Soroban (ábaco japonês)</h2>
-    <p id="soroban-p1" class="mb-3">O Soroban traz práticas úteis de ergonomia e leitura que também servem para este Ábaco Ternário Balanceado.</p>
-    <ul class="list-disc list-inside space-y-2">
-        <li id="soroban-li1"><strong class="text-teal-300">Agrupamento visual:</strong> As hastes são separadas em grupos de 3 para facilitar a leitura de potências de 3.</li>
-        <li id="soroban-li2"><strong class="text-teal-300">Céu e Terra:</strong> A área superior e a inferior têm um leve contraste, lembrando as regiões do Soroban e ajudando na referência visual.</li>
-        <li id="soroban-li3"><strong class="text-teal-300">Botão de limpeza:</strong> Use o botão “Limpar” para zerar rapidamente o ábaco, como um movimento de varredura no Soroban.</li>
-        <li id="soroban-li4"><strong class="text-teal-300">Leitura da direita para a esquerda:</strong> Comece sempre pela haste de \(3^0\) (direita) ao somar/subtrair, tal como se procede no Soroban.</li>
-        <li id="soroban-li5"><strong class="text-teal-300">Fluxo de transporte/empresta:</strong> Ao atingir \(+2\) ou \(-2\) numa haste, converta para um dígito balanceado e transporte/empreste para a próxima haste.</li>
-    </ul>
-</div>
+    <section id="soroban-content" class="hidden mt-6 p-6 bg-gray-700 rounded-lg">
+      <h2 id="soroban-title" class="text-xl font-semibold text-teal-300 mb-3">Dicas inspiradas no Soroban (ábaco
+        japonês)</h2>
+      <p id="soroban-p1" class="mb-3">O Soroban traz práticas úteis de ergonomia e leitura que também servem para este
+        Ábaco Ternário Balanceado.</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li id="soroban-li1"><strong class="text-teal-300">Agrupamento visual:</strong> As hastes são separadas em
+          grupos de 3 para facilitar a leitura de potências de 3.</li>
+        <li id="soroban-li2"><strong class="text-teal-300">Céu e Terra:</strong> A área superior e a inferior têm um
+          leve contraste, lembrando as regiões do Soroban e ajudando na referência visual.</li>
+        <li id="soroban-li3"><strong class="text-teal-300">Botão de limpeza:</strong> Use o botão “Limpar” para zerar
+          rapidamente o ábaco, como um movimento de varredura no Soroban.</li>
+        <li id="soroban-li4"><strong class="text-teal-300">Leitura da direita para a esquerda:</strong> Comece sempre
+          pela haste de \(3^0\) (direita) ao somar/subtrair, tal como se procede no Soroban.</li>
+        <li id="soroban-li5"><strong class="text-teal-300">Fluxo de transporte/empresta:</strong> Ao atingir \(+2\) ou
+          \(-2\) numa haste, converta para um dígito balanceado e transporte/empreste para a próxima haste.</li>
+      </ul>
+    </section>
+  </main>
 
-<footer class="mt-10 mb-6 text-center text-gray-400 text-sm">
-    <p><a>MIT License</a> Robson Cassiano</p>
+  <footer class="mt-10 mb-6 text-center text-gray-400 text-sm">
+    <p><a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a> &copy; 2025 Robson
+      Cassiano</p>
     <p class="mt-1">Live Long and Prosper 🖖🏻</p>
-</footer>
+  </footer>
 
-<script src="assets/js/app.js?v=20251109" defer></script>
-<script src="assets/js/main.js?v=20251109" defer></script>
+  <script src="assets/js/app.js?v=20251109" defer></script>
+  <script src="assets/js/main.js?v=20251109" defer></script>
 </body>
+
 </html>
