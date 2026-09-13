@@ -6,7 +6,7 @@
   Caches core app shell and provides runtime caching for other requests (e.g., CDN assets).
 */
 
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const APP_CACHE = `abaco-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 
@@ -92,28 +92,38 @@ self.addEventListener('fetch', (event) => {
   // Same-origin: cache-first strategy for local assets
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(request).then((cached) => {
+      caches.match(request, { ignoreSearch: true }).then((cached) => {
         if (cached) return cached;
         return fetch(request).then((response) => {
-          // Cache a clone of the response for future use
-          return caches.open(APP_CACHE).then((cache) => {
-            cache.put(request, response.clone());
-            return response;
-          });
+          if (!response || response.status !== 200) return response;
+          const responseToCache = response.clone();
+          caches.open(APP_CACHE).then((cache) => cache.put(request, responseToCache));
+          return response;
         }).catch(() => caches.match('./index.html'));
       })
     );
     return;
   }
 
-  // Cross-origin (e.g., CDN): network-first with runtime cache fallback
+  // Cross-origin: restringe a origens CDN confiáveis com fallback em cache
+  const ALLOWED_CDN_ORIGINS = new Set([
+    'https://cdn.jsdelivr.net',
+    'https://cdn.tailwindcss.com',
+    'https://raw.githubusercontent.com'
+  ]);
+
+  if (!ALLOWED_CDN_ORIGINS.has(url.origin)) {
+    return;
+  }
+
   event.respondWith(
     (async () => {
       try {
-        const fresh = await fetch(request, { mode: 'no-cors' });
-        // no-cors may create an opaque response; still cache it
-        const cache = await caches.open(RUNTIME_CACHE);
-        cache.put(request, fresh.clone());
+        const fresh = await fetch(request);
+        if (fresh && fresh.status === 200) {
+          const cache = await caches.open(RUNTIME_CACHE);
+          cache.put(request, fresh.clone());
+        }
         return fresh;
       } catch (e) {
         const cache = await caches.open(RUNTIME_CACHE);

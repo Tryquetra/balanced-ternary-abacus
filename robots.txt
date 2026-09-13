@@ -1,6 +1,8 @@
 # Allow all crawlers, including AI agents and search engines
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 # Explicitly allow common AI crawlers
 User-agent: GPTBot
@@ -16,6 +18,12 @@ User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap for better indexing

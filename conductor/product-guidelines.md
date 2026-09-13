@@ -12,11 +12,13 @@
         *   **Inactive:** Green (`#48bb78`) to show potential.
 
 ## User Experience (UX)
-*   **Interactivity:** Click-based interaction on beads. Feedback should be immediate—visual state change + instant recalculation of total and math notation.
-*   **Accessibility:**
-    *   Beads must be large enough for touch targets on mobile.
-    *   High contrast text for readability.
-    *   Keyboard navigation support (future enhancement).
+*   **Interactivity:** Click-based interaction on beads. Feedback should be immediate: visual state change + instant recalculation of total and math notation.
+*   **Aesthetics:** Polished dark mode by default. Balanced, harmonic layout with generous whitespace. Clean, sans-serif typography.
+*   **Accessibility:** Usable via keyboard or screen reader. High-contrast bead states. Responsive down to mobile viewports.
+
+## Architecture
+
+*   **Structure:** Separation of concerns: HTML for structure, CSS (Tailwind + custom) for presentation, JS for logic.
 *   **Responsiveness:** The layout must adapt gracefully from desktop monitors to mobile screens, ensuring the abacus rods remain usable without horizontal scrolling if possible, or scroll naturally.
 
 ## Writing Style
@@ -25,6 +27,6 @@
 *   **Bilingualism:** All user-facing text must be available in both English (US) and Portuguese (BR).
 
 ## Code Style & Convention
-*   **Structure:** Separation of concerns—HTML for structure, CSS (Tailwind + custom) for presentation, JS for logic.
+*   **Structure:** Separation of concerns: HTML for structure, CSS (Tailwind + custom) for presentation, JS for logic.
 *   **Simplicity:** Avoid heavy frameworks for the core logic; keep the abacus engine lightweight and dependency-free.
 *   **Documentation:** Clear comments explaining the mathematical logic (e.g., why a bead move equals +3 or -9).

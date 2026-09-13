@@ -31,14 +31,27 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTopIconsVisibility();
     window.addEventListener('scroll', updateTopIconsVisibility, { passive: true });
 
-    // Constants for bead colors (keep exact colors to preserve behavior)
+    // Constants for bead colors with high WCAG contrast
     const COLOR_DEFAULT = '#48bb78';
-    const COLOR_TOP_ACTIVE = 'rgb(0, 0, 255)';
-    const COLOR_BOTTOM_ACTIVE = 'rgb(197, 48, 48)';
-    const COLOR_BOTH_ACTIVE = 'white';
+    const COLOR_TOP_ACTIVE = '#38bdf8';
+    const COLOR_BOTTOM_ACTIVE = '#f87171';
+    const COLOR_BOTH_ACTIVE = '#ffffff';
 
     // Precompute powers of 3 to avoid repeated Math.pow in updates
     const POW3 = Array.from({ length: numRods }, (_, i) => 3 ** i);
+
+    const updateBeadAria = (bead, rodIndex, val, isActive) => {
+        const lang = currentLang || 'pt';
+        const sign = val > 0 ? '+1' : '-1';
+        const stateText = isActive
+            ? (lang === 'pt' ? 'ativada' : 'active')
+            : (lang === 'pt' ? 'desativada' : 'inactive');
+        const label = lang === 'pt'
+            ? `Haste com potência 3 elevado a ${rodIndex}, valor ${sign}, ${stateText}`
+            : `Rod with power 3 to the ${rodIndex}, value ${sign}, ${stateText}`;
+        bead.setAttribute('aria-label', label);
+        bead.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    };
 
     // Helper to apply the visual/logic state of a rod after a click
     const applyRodState = (i, topBead, bottomBead) => {
@@ -62,6 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
             bottomBead.style.borderBottomColor = COLOR_DEFAULT;
             rodValues[i] = 0;
         }
+
+        updateBeadAria(topBead, i, 1, isTopActive);
+        updateBeadAria(bottomBead, i, -1, isBottomActive);
     };
 
     // Lazy-load MathJax and typeset only needed containers
@@ -89,8 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Utility to wire a simple show/hide toggle and typeset MathJax when shown
     const wireToggle = (btn, content) => {
         btn.addEventListener('click', async () => {
+            const isCurrentlyHidden = content.classList.contains('hidden');
             content.classList.toggle('hidden');
-            if (!content.classList.contains('hidden')) {
+            btn.setAttribute('aria-expanded', isCurrentlyHidden ? 'true' : 'false');
+            if (isCurrentlyHidden) {
                 await typesetElements(content);
             }
         }, { passive: true });
@@ -99,125 +117,125 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         'pt': {
             'main-title': 'Ábaco Ternário Balanceado',
-            'description': 'Clique nas contas para somar (+1) ou subtrair (-1) e ver a representação matemática.',
-            'total-title': 'Valor Total',
-            'tutorial-toggle': '👉 Tutorial de como usar o ábaco',
-            'sum-toggle': '➕ Como somar',
-            'sub-toggle': '➖ Como subtrair',
-            'tutorial-title': 'Tutorial do Ábaco de Lógica Ternária Balanceada',
-            'tutorial-p1': 'Este guia rápido explica como usar o ábaco interativo de lógica ternária balanceada, que utiliza os valores <b>1</b> (positivo), <b>0</b> (neutro) e <b>-1</b> (negativo) para representar números.',
-            'tutorial-p2': 'O ábaco é composto por várias hastes, onde cada uma representa uma potência de 3. As hastes são organizadas da direita para a esquerda, começando com \\(3^0\\).',
+            'description': 'Mova as contas para somar (+1) ou subtrair (-1). Observe a notação polinomial se transformar instantaneamente a cada movimento.',
+            'total-title': 'Valor Decimal',
+            'tutorial-toggle': '👉 Guia Passo a Passo do Ábaco',
+            'sum-toggle': '➕ Como Somar na Base 3',
+            'sub-toggle': '➖ Como Subtrair na Base 3',
+            'tutorial-title': 'Guia de Aprendizado do Ábaco Ternário Balanceado',
+            'tutorial-p1': 'Domine a aritmética posicional operando valores simétricos: <b>+1</b> (positivo), <b>0</b> (neutro) e <b>-1</b> (negativo). Esse método simplifica o cálculo mental ao dispensar regras separadas para sinais.',
+            'tutorial-p2': 'Cada haste vertical representa uma potência posicional de 3, ordenadas da direita para a esquerda:',
             'tutorial-li1': '<strong class="text-teal-300">Primeira haste (da direita):</strong> \\(3^0\\) (valor 1)',
             'tutorial-li2': '<strong class="text-teal-300">Segunda haste:</strong> \\(3^1\\) (valor 3)',
             'tutorial-li3': '<strong class="text-teal-300">Terceira haste:</strong> \\(3^2\\) (valor 9)',
-            'tutorial-li4': 'e assim por diante...',
+            'tutorial-li4': 'Hastes subsequentes: potências crescentes \\(3^3\\) (27), \\(3^4\\) (81), \\(3^5\\) (243) e \\(3^6\\) (729).',
             'tutorial-h3-1': 'Representando Valores com as Contas',
-            'tutorial-p3': 'Cada haste tem duas contas: uma na parte superior e outra na inferior. A barra horizontal central é a referência.',
-            'tutorial-li5': 'Para representar o valor <b>1</b> (positivo): Clique na conta superior para que ela encoste na barra central.',
-            'tutorial-li6': 'Para representar o valor <b>-1</b> (negativo): Clique na conta inferior para que ela encoste na barra central.',
-            'tutorial-li7': 'Para representar o valor <b>0</b> (neutro): Deixe as contas distantes da barra central.',
-            'tutorial-li8': 'Uma característica especial do seu ábaco é que você pode representar o <b>0</b> de duas maneiras:',
-            'tutorial-li9': '<strong class="text-teal-300">Forma "vazia":</strong> Nenhuma conta toca a barra central.',
-            'tutorial-li10': '<strong class="text-teal-300">Forma "balanceada":</strong> Ambas as contas (a superior e a inferior) tocam a barra, já que a soma de \\(1 + (-1)\\) resulta em \\(0\\).',
+            'tutorial-p3': 'Cada haste possui duas contas móveis alinhadas à barra horizontal central de referência:',
+            'tutorial-li5': 'Para registrar <b>+1</b>: Aproxime a conta superior da barra central.',
+            'tutorial-li6': 'Para registrar <b>-1</b>: Aproxime a conta inferior da barra central.',
+            'tutorial-li7': 'Para registrar <b>0</b>: Mantenha ambas as contas afastadas da barra central.',
+            'tutorial-li8': 'O sistema oferece duas configurações perfeitamente equilibradas para o valor <b>0</b>:',
+            'tutorial-li9': '<strong class="text-teal-300">Posição Neutra:</strong> Nenhuma conta toca a barra central.',
+            'tutorial-li10': '<strong class="text-teal-300">Posição Balanceada:</strong> Ambas as contas tocam a barra central simultaneamente, demonstrando fisicamente que \\(1 + (-1) = 0\\).',
             'tutorial-h3-2': 'Lendo o Valor Total',
-            'tutorial-p4': 'O valor total do ábaco é a soma dos valores de cada haste. A aplicação calcula e exibe automaticamente o valor na base 10 (decimal). A notação matemática, como \\(1 \\cdot 3^1 + (-1) \\cdot 3^0\\), também é mostrada para ajudar a visualizar o cálculo.',
+            'tutorial-p4': 'O valor final do ábaco resulta da soma ponderada de cada haste. O simulador calcula o valor decimal correspondente de forma instantânea e detalha a notação matemática expandida para consolidar o aprendizado.',
 
             'footer-sum-title': 'Como somar no ábaco',
-            'footer-sum-p1': 'Para somar dois números, você pode usar o ábaco como uma calculadora manual: primeiro represente o primeiro número; depois aplique o segundo número haste a haste.',
-            'footer-sum-li1': '<strong class="text-teal-300">1) Configure o primeiro número:</strong> Clique nas contas para formar o valor desejado. O total em decimal aparece acima.',
-            'footer-sum-li2': '<strong class="text-teal-300">2) Adicione o segundo número:</strong> Comece pela haste da direita (\\(3^0\\)). Para cada unidade a somar, ative a conta de cima (\\(+1\\)); para cada unidade a subtrair, ative a de baixo (\\(-1\\)).',
-            'footer-sum-li3': '<strong class="text-teal-300">3) Ajuste os "vai-um" balanceados:</strong> Se uma haste ficar com duas contas ativas do mesmo lado (equivalente a \\(+2\\) ou \\(-2\\)), troque por um dígito balanceado e carregue para a próxima haste: \\(+2 = -1 + 1\\cdot 3\\) e \\(-2 = 1 - 1\\cdot 3\\).',
-            'footer-sum-note': 'Dica: quando ambas as contas tocam a barra na mesma haste, o valor local é \\(0\\): isso ajuda a enxergar combinações como \\(1 + (-1) = 0\\). Você pode conferir o resultado na leitura em decimal e na notação matemática.',
+            'footer-sum-p1': 'Execute adições com precisão mecânica posicionando o primeiro número e somando a segunda parcela haste por haste, da direita para a esquerda.',
+            'footer-sum-li1': '<strong class="text-teal-300">1. Posicione a primeira parcela:</strong> Mova as contas até registrar o primeiro valor. O total decimal correspondente surge na tela.',
+            'footer-sum-li2': '<strong class="text-teal-300">2. Adicione a segunda parcela:</strong> Inicie pela haste das unidades (\\(3^0\\)). Acione a conta superior (\\(+1\\)) para somar unidades ou a inferior (\\(-1\\)) para subtrair unidades.',
+            'footer-sum-li3': '<strong class="text-teal-300">3. Execute o transporte ternário:</strong> Quando uma haste acumular valor local \\(+2\\), registre \\(-1\\) nessa posição e adicione \\(+1\\) na haste imediatamente à esquerda (\\(+2 = -1 + 1\\cdot 3\\)). Para valor local \\(-2\\), registre \\(+1\\) e deduza \\(1\\) na haste à esquerda (\\(-2 = 1 - 1\\cdot 3\\)).',
+            'footer-sum-note': 'Dica prática: Duas contas tocando a barra na mesma haste anulam-se mutuamente gerando \\(0\\). Acompanhe essa simplificação em tempo real no visor de notação matemática.',
 
             'footer-sum-table-title': 'Tabela de combinações para somar',
             'footer-sum-col1': 'Alvo (+n)',
             'footer-sum-col2': 'Combinação em potências de 3',
 
             'footer-sub-title': 'Como subtrair no ábaco',
-            'footer-sub-p1': 'Para subtrair \\(B\\) de \\(A\\), você pode pensar como soma com o oposto: some \\(-B\\). Outra forma é aplicar as unidades a subtrair haste a haste.',
-            'footer-sub-li1': '<strong class="text-teal-300">1) Configure o minuendo \\(A\\):</strong> Represente \\(A\\) no ábaco. O total em decimal aparece acima.',
-            'footer-sub-li2': '<strong class="text-teal-300">2) Subtraia o subtraendo \\(B\\):</strong> Comece pela haste da direita (\\(3^0\\)). Para cada unidade a subtrair, ative a conta de baixo (\\(-1\\)); para desfazer uma unidade, ative a de cima (\\(+1\\)).',
-            'footer-sub-li3': '<strong class="text-teal-300">3) Ajuste os "empresta" balanceados:</strong> Se uma haste chegar a \\(-2\\) ou \\(+2\\), converta usando os dígitos balanceados e faça o empréstimo/transporte: \\(-2 = 1 - 1\\cdot 3\\) (empresta \\(1\\) para a próxima haste) e \\(+2 = -1 + 1\\cdot 3\\) (carrega \\(1\\) para a próxima haste).',
-            'footer-sub-note': 'Dica: subtrair é o mesmo que somar o negativo. Para formar \\(-B\\), inverta os sinais dos dígitos de \\(B\\) (\\(1 \\leftrightarrow -1\\)) e então some.',
+            'footer-sub-p1': 'Subtrair na base ternária balanceada consiste em somar o inverso aritmético do subtraendo. Cada dígito \\(+1\\) transforma-se em \\(-1\\) e cada \\(-1\\) torna-se \\(+1\\).',
+            'footer-sub-li1': '<strong class="text-teal-300">1. Registre o minuendo:</strong> Componha o valor inicial no ábaco.',
+            'footer-sub-li2': '<strong class="text-teal-300">2. Aplique a inversão:</strong> Mude o sinal dos dígitos da segunda parcela e aplique-os haste por haste.',
+            'footer-sub-li3': '<strong class="text-teal-300">3. Conclua as compensações:</strong> Resolva excessos locais convertendo \\(-2\\) em \\(+1\\) na haste atual com transporte de \\(-1\\) para a haste à esquerda.',
+            'footer-sub-note': 'Dica de agilidade: O botão Inverter Sinais (+/-) no painel inverte todos os dígitos ativados com um único toque, agilizando subtrações sequenciais.',
 
             'footer-sub-table-title': 'Tabela de combinações para subtrair',
             'footer-sub-col1': 'Alvo (-n)',
             'footer-sub-col2': 'Combinação em potências de 3',
 
             /* Soroban-inspired tips */
-            'soroban-toggle': '💡 Dicas do Heisanban',
-            'soroban-title': 'Dicas inspiradas no Soroban (ábaco japonês)',
-            'soroban-p1': 'O Soroban traz práticas úteis de ergonomia e leitura que também servem para este ábaco ternário balanceado.',
-            'soroban-li1': '<strong class="text-teal-300">Agrupamento visual:</strong> As hastes são separadas em grupos de 3 para facilitar a leitura de potências de 3.',
-            'soroban-li2': '<strong class="text-teal-300">Céu e Terra:</strong> A área superior e a inferior têm um leve contraste, lembrando as regiões do Soroban e ajudando na referência visual.',
-            'soroban-li3': '<strong class="text-teal-300">Botão de limpeza:</strong> Use o botão “Limpar” para zerar rapidamente o ábaco, como um movimento de varredura no Soroban.',
-            'soroban-li4': '<strong class="text-teal-300">Leitura da direita para a esquerda:</strong> Comece sempre pela haste de \\(3^0\\) (direita) ao somar/subtrair, tal como se procede no Soroban.',
-            'soroban-li5': '<strong class="text-teal-300">Fluxo de transporte/empresta:</strong> Ao atingir \\(+2\\) ou \\(-2\\) numa haste, converta para um dígito balanceado e transporte/empreste para a próxima haste.',
-            'clear-button': 'Limpar',
-            'invert-button': 'Inverter',
-            'decimal-input-label': 'Converter Decimal (-1093 a 1093):',
-            'apply-decimal-button': 'Aplicar'
+            'soroban-toggle': '💡 Princípios Ergonômicos do Soroban',
+            'soroban-title': 'Técnicas Ergonômicas do Soroban Tradicional',
+            'soroban-p1': 'A engenharia secular do Soroban oferece técnicas ergonômicas comprovadas que elevam a precisão e o ritmo de cálculo no ábaco ternário balanceado.',
+            'soroban-li1': '<strong class="text-teal-300">Agrupamento ternário:</strong> Hastes separadas em blocos de 3 facilitam a identificação visual imediata das ordens de grandeza.',
+            'soroban-li2': '<strong class="text-teal-300">Regiões Céu e Terra:</strong> O contraste sutil entre os planos superior e inferior ancora o foco e acelera a conferência dos sinais.',
+            'soroban-li3': '<strong class="text-teal-300">Varredura de reinicialização:</strong> O botão Zerar Contas reproduz o gesto clássico de limpeza do Soroban, preparando o instrumento para o cálculo seguinte.',
+            'soroban-li4': '<strong class="text-teal-300">Sequência natural:</strong> Conduza operações sempre a partir da haste inicial \\(3^0\\) à direita, garantindo cadência mental constante.',
+            'soroban-li5': '<strong class="text-teal-300">Harmonização contínua:</strong> Ao encontrar saturação \\(+2\\) ou \\(-2\\), faça a compensação posicional imediata rumo à haste seguinte.',
+            'clear-button': 'Zerar Contas',
+            'invert-button': 'Inverter Sinais (+/-)',
+            'decimal-input-label': 'Insira um valor decimal (-1093 a 1093):',
+            'apply-decimal-button': 'Converter no Ábaco'
         },
         'en': {
             'main-title': 'Balanced Ternary Abacus',
-            'description': 'Click the beads to add (+1) or subtract (-1) and see the mathematical representation.',
-            'total-title': 'Total Value',
-            'tutorial-toggle': '👉 How to use the abacus tutorial',
-            'sum-toggle': '➕ How to add',
-            'sub-toggle': '➖ How to subtract',
-            'tutorial-title': 'Balanced Ternary Abacus Tutorial',
-            'tutorial-p1': 'This quick guide explains how to use the interactive balanced ternary abacus, which uses the values <b>1</b> (positive), <b>0</b> (neutral), and <b>-1</b> (negative) to represent numbers.',
-            'tutorial-p2': 'The abacus consists of several rods, where each one represents a power of 3. The rods are organized from right to left, starting with \\(3^0\\).',
+            'description': 'Move the beads to add (+1) or subtract (-1). Watch the polynomial notation update instantly with every move.',
+            'total-title': 'Decimal Value',
+            'tutorial-toggle': '👉 Abacus Step-by-Step Guide',
+            'sum-toggle': '➕ How to Add in Base 3',
+            'sub-toggle': '➖ How to Subtract in Base 3',
+            'tutorial-title': 'Balanced Ternary Abacus Learning Guide',
+            'tutorial-p1': 'Master positional arithmetic using symmetric values: <b>+1</b> (positive), <b>0</b> (neutral), and <b>-1</b> (negative). This method streamlines mental math by unifying positive and negative operations into a single set of movements.',
+            'tutorial-p2': 'Each vertical rod represents a positional power of 3, arranged from right to left:',
             'tutorial-li1': '<strong class="text-teal-300">First rod (on the right):</strong> \\(3^0\\) (value 1)',
             'tutorial-li2': '<strong class="text-teal-300">Second rod:</strong> \\(3^1\\) (value 3)',
             'tutorial-li3': '<strong class="text-teal-300">Third rod:</strong> \\(3^2\\) (value 9)',
-            'tutorial-li4': 'and so on...',
+            'tutorial-li4': 'Subsequent rods: expanding powers \\(3^3\\) (27), \\(3^4\\) (81), \\(3^5\\) (243), and \\(3^6\\) (729).',
             'tutorial-h3-1': 'Representing Values with the Beads',
-            'tutorial-p3': 'Each rod has two beads: one on the top part and one on the bottom part. The central horizontal bar is the reference.',
-            'tutorial-li5': 'To represent the value <b>1</b> (positive): Click the top bead so that it touches the central bar.',
-            'tutorial-li6': 'To represent the value <b>-1</b> (negative): Click the bottom bead so that it touches the central bar.',
-            'tutorial-li7': 'To represent the value <b>0</b> (neutral): Leave the beads away from the central bar.',
-            'tutorial-li8': 'A special feature of your abacus is that you can represent <b>0</b> in two ways:',
-            'tutorial-li9': '<strong class="text-teal-300">"Empty" form:</strong> No beads touch the central bar.',
-            'tutorial-li10': '<strong class="text-teal-300">"Balanced" form:</strong> Both beads (the top and bottom) touch the bar, since the sum of \\(1 + (-1)\\) results in \\(0\\).',
+            'tutorial-p3': 'Each rod features two movable beads aligned with the central reference beam:',
+            'tutorial-li5': 'To enter <b>+1</b>: Slide the top bead against the central beam.',
+            'tutorial-li6': 'To enter <b>-1</b>: Slide the bottom bead against the central beam.',
+            'tutorial-li7': 'To enter <b>0</b>: Keep both beads away from the central beam.',
+            'tutorial-li8': 'The abacus provides two valid configurations to express the value <b>0</b>:',
+            'tutorial-li9': '<strong class="text-teal-300">Neutral State:</strong> Neither bead touches the central beam.',
+            'tutorial-li10': '<strong class="text-teal-300">Balanced State:</strong> Both beads touch the central beam together, visually proving that \\(1 + (-1) = 0\\).',
             'tutorial-h3-2': 'Reading the Total Value',
-            'tutorial-p4': 'The total value of the abacus is the sum of the values of each rod. The application automatically calculates and displays the value in base 10 (decimal). The mathematical notation, such as \\(1 \\cdot 3^1 + (-1) \\cdot 3^0\\), also is shown to help visualize the calculation.',
+            'tutorial-p4': 'The total abacus value is the sum of every rod. The application computes the decimal value immediately and displays the expanded mathematical formula to reinforce your understanding.',
 
             'footer-sum-title': 'How to add using the abacus',
-            'footer-sum-p1': 'To add two numbers, use the abacus like a manual calculator: first represent the first number; then apply the second number rod by rod.',
-            'footer-sum-li1': '<strong class="text-teal-300">1) Set the first number:</strong> Click the beads to form the desired value. The decimal total is shown above.',
-            'footer-sum-li2': '<strong class="text-teal-300">2) Add the second number:</strong> Start on the rightmost rod (\\(3^0\\)). For each unit to add, activate the top bead (\\(+1\\)); for each unit to subtract, activate the bottom bead (\\(-1\\)).',
-            'footer-sum-li3': '<strong class="text-teal-300">3) Handle balanced carries:</strong> If a rod ends up with two active beads on the same side (equivalent to \\(+2\\) or \\(-2\\)), convert to a balanced digit and carry to the next rod: \\(+2 = -1 + 1\\cdot 3\\) and \\(-2 = 1 - 1\\cdot 3\\).',
-            'footer-sum-note': 'Tip: when both beads touch the bar on the same rod, the local value is \\(0\\): this helps to see combinations like \\(1 + (-1) = 0\\). You can verify the result in the decimal reading and in the mathematical notation.',
+            'footer-sum-p1': 'Perform addition with mechanical clarity by entering your first number and applying the second term rod by rod, starting from the right.',
+            'footer-sum-li1': '<strong class="text-teal-300">1. Set the first term:</strong> Move the beads to form your initial number. The decimal total updates instantly on screen.',
+            'footer-sum-li2': '<strong class="text-teal-300">2. Add the second term:</strong> Begin at the rightmost rod (\\(3^0\\)). Activate the top bead (\\(+1\\)) to add or the bottom bead (\\(-1\\)) to subtract units.',
+            'footer-sum-li3': '<strong class="text-teal-300">3. Apply ternary carries:</strong> Whenever a rod reaches \\(+2\\), register \\(-1\\) on the current rod and carry \\(+1\\) to the rod to the left (\\(+2 = -1 + 1\\cdot 3\\)). For \\(-2\\), register \\(+1\\) and pass \\(-1\\) to the left (\\(-2 = 1 - 1\\cdot 3\\)).',
+            'footer-sum-note': 'Practical tip: Two beads touching the beam on the same rod cancel each other out to make \\(0\\). Follow this real-time reduction directly in the mathematical notation display.',
 
             'footer-sum-table-title': 'Addition combinations table',
             'footer-sum-col1': 'Target (+n)',
             'footer-sum-col2': 'Combination in powers of 3',
 
             'footer-sub-title': 'How to subtract using the abacus',
-            'footer-sub-p1': 'To subtract \\(B\\) from \\(A\\), think of it as addition with the opposite: add \\(-B\\). You can also apply the units to subtract rod by rod.',
-            'footer-sub-li1': '<strong class="text-teal-300">1) Set the minuend \\(A\\):</strong> Represent \\(A\\) on the abacus. The decimal total is shown above.',
-            'footer-sub-li2': '<strong class="text-teal-300">2) Subtract the subtrahend \\(B\\):</strong> Start on the rightmost rod (\\(3^0\\)). For each unit to subtract, activate the bottom bead (\\(-1\\)); to undo one unit, activate the top bead (\\(+1\\)).',
-            'footer-sub-li3': '<strong class="text-teal-300">3) Handle balanced borrows:</strong> If a rod reaches \\(-2\\) or \\(+2\\), convert using balanced digits and perform the borrow/carry: \\(-2 = 1 - 1\\cdot 3\\) (borrow \\(1\\) from the next rod) and \\(+2 = -1 + 1\\cdot 3\\) (carry \\(1\\) to the next rod).',
-            'footer-sub-note': 'Tip: subtraction is the same as adding the negative. To form \\(-B\\), flip the signs of the digits of \\(B\\) (\\(1 \\leftrightarrow -1\\)) and then add.',
+            'footer-sub-p1': 'Subtracting in balanced ternary means adding the arithmetic inverse of the subtrahend. Each \\(+1\\) digit becomes \\(-1\\) and each \\(-1\\) becomes \\(+1\\).',
+            'footer-sub-li1': '<strong class="text-teal-300">1. Set the minuend:</strong> Position your starting value on the abacus.',
+            'footer-sub-li2': '<strong class="text-teal-300">2. Apply sign inversion:</strong> Flip the signs of your second number\'s digits and enter them rod by rod.',
+            'footer-sub-li3': '<strong class="text-teal-300">3. Complete carries:</strong> Resolve local surpluses by converting \\(-2\\) into \\(+1\\) on the current rod while carrying \\(-1\\) to the left.',
+            'footer-sub-note': 'Speed tip: The Invert Signs (+/-) button flips every active digit with a single click, making multi-step subtractions fast and effortless.',
 
             'footer-sub-table-title': 'Subtraction combinations table',
             'footer-sub-col1': 'Target (-n)',
             'footer-sub-col2': 'Combination in powers of 3',
 
             /* Soroban-inspired tips */
-            'soroban-toggle': '💡 Heisanban tips',
+            'soroban-toggle': '💡 Soroban Ergonomic Principles',
             'soroban-title': 'Tips inspired by the Soroban (Japanese abacus)',
-            'soroban-p1': 'Soroban offers ergonomic and reading practices that are also useful for this balanced ternary abacus.',
-            'soroban-li1': '<strong class="text-teal-300">Visual grouping:</strong> Rods are separated into groups of 3 to ease reading of powers of 3.',
-            'soroban-li2': '<strong class="text-teal-300">Heaven and Earth:</strong> The top and bottom areas have a subtle contrast, recalling Soroban regions and helping visual reference.',
-            'soroban-li3': '<strong class="text-teal-300">Clear button:</strong> Use the “Clear” button to quickly reset the abacus, similar to a sweeping motion on the Soroban.',
-            'soroban-li4': '<strong class="text-teal-300">Read right-to-left:</strong> Always start with the \\(3^0\\) rod (right) when adding/subtracting, as done on the Soroban.',
-            'soroban-li5': '<strong class="text-teal-300">Carry/borrow flow:</strong> When a rod reaches \\(+2\\) or \\(-2\\), convert to a balanced digit and carry/borrow to the next rod.',
-            'clear-button': 'Clear',
-            'invert-button': 'Invert',
-            'decimal-input-label': 'Decimal Converter (-1093 to 1093):',
-            'apply-decimal-button': 'Apply'
+            'soroban-p1': 'Centuries of Soroban engineering provide proven ergonomic methods that increase calculating speed and precision on your balanced ternary abacus.',
+            'soroban-li1': '<strong class="text-teal-300">Ternary Grouping:</strong> Rods organized in groups of 3 speed up recognition of magnitude orders.',
+            'soroban-li2': '<strong class="text-teal-300">Heaven and Earth Decks:</strong> Subtle visual contrast between upper and lower decks anchors your eyes and speeds up sign checks.',
+            'soroban-li3': '<strong class="text-teal-300">Reset Sweep:</strong> The Reset Beads button mirrors the traditional Soroban sweeping gesture, clearing the instrument for your next problem.',
+            'soroban-li4': '<strong class="text-teal-300">Natural Flow:</strong> Always begin calculating from the unit rod \\(3^0\\) on the right to preserve a steady mental cadence.',
+            'soroban-li5': '<strong class="text-teal-300">Continuous Harmonization:</strong> Whenever a rod encounters \\(+2\\) or \\(-2\\), execute the positional carry promptly to sustain calculating momentum.',
+            'clear-button': 'Reset Beads',
+            'invert-button': 'Invert Signs (+/-)',
+            'decimal-input-label': 'Enter a decimal value (-1093 to 1093):',
+            'apply-decimal-button': 'Plot on Abacus'
         }
     };
 
@@ -428,30 +446,20 @@ document.addEventListener('DOMContentLoaded', () => {
         invertButton.addEventListener('click', invertAbacus);
     }
 
-    let didTypesetRods = false;
-    const updateDisplay = async () => {
+    const updateDisplay = () => {
         let total = 0;
         const terms = [];
         for (let i = 0; i < numRods; i++) {
             const value = rodValues[i];
             total += value * POW3[i];
             if (value !== 0) {
-                terms.unshift(`${value} \\cdot 3^{${i}}`);
+                const signStr = value === -1 ? '(-1)' : '1';
+                terms.unshift(`${signStr} &middot; 3<sup>${i}</sup>`);
             }
         }
 
         totalValueDisplay.textContent = total;
-        mathNotationDisplay.textContent = terms.length
-            ? `\\( ${terms.join(' + ')} \\)`
-            : '';
-
-        if (terms.length) {
-            await typesetElements(mathNotationDisplay);
-            if (!didTypesetRods) {
-                await typesetElements(abacusRodsContainer);
-                didTypesetRods = true;
-            }
-        }
+        mathNotationDisplay.innerHTML = terms.length ? terms.join(' + ') : '';
     };
 
     // Expose a global setter so the new <select id="lang-select"> can drive page translations too
@@ -462,7 +470,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentLang = safe;
                 updateLanguage();
             } else {
-                // Even if the same, ensure meta/title/texts reflect any later DOM changes
                 updateLanguage();
             }
             if (!opts || !opts.suppressUrl) {
@@ -544,8 +551,8 @@ document.addEventListener('DOMContentLoaded', () => {
             topBead.classList.add('bead', 'top');
             topBead.setAttribute('role', 'button');
             topBead.setAttribute('tabindex', '0');
-            topBead.setAttribute('aria-label', `Haste 3^${i}, valor +1`);
             topBead.style.borderTopColor = COLOR_DEFAULT;
+            updateBeadAria(topBead, i, 1, false);
 
             const handleTopAction = () => {
                 topBead.classList.toggle('active');
@@ -564,8 +571,8 @@ document.addEventListener('DOMContentLoaded', () => {
             bottomBead.classList.add('bead', 'bottom');
             bottomBead.setAttribute('role', 'button');
             bottomBead.setAttribute('tabindex', '0');
-            bottomBead.setAttribute('aria-label', `Haste 3^${i}, valor -1`);
             bottomBead.style.borderBottomColor = COLOR_DEFAULT;
+            updateBeadAria(bottomBead, i, -1, false);
 
             const handleBottomAction = () => {
                 bottomBead.classList.toggle('active');
@@ -586,7 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const powerLabel = document.createElement('div');
             powerLabel.classList.add('power-label');
-            powerLabel.textContent = `\\(3^{${i}}\\)`;
+            powerLabel.innerHTML = `3<sup>${i}</sup>`;
 
             rod.appendChild(topBead);
             rod.appendChild(bottomBead);
@@ -595,8 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
             abacusRodsContainer.prepend(rod);
         }
         updateDisplay();
-        // Ensure LaTeX power labels under each rod are typeset even when notation line is empty
-        typesetElements(abacusRodsContainer).then(() => { didTypesetRods = true; });
     };
 
     updateLanguage();
