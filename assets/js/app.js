@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const invertButton = document.getElementById('invert-button');
     const translationBtn = document.getElementById('translation-button');
     const githubLink = document.querySelector('.github-link');
+    const decimalForm = document.getElementById('decimal-form');
+    const decimalInput = document.getElementById('decimal-input');
+    const decimalInputLabel = document.getElementById('decimal-input-label');
+    const applyDecimalBtn = document.getElementById('apply-decimal-button');
 
     // Hide top-corner icons when the page is scrolled down; show them only at the very top
     const updateTopIconsVisibility = () => {
@@ -123,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'footer-sum-li1': '<strong class="text-teal-300">1) Configure o primeiro número:</strong> Clique nas contas para formar o valor desejado. O total em decimal aparece acima.',
             'footer-sum-li2': '<strong class="text-teal-300">2) Adicione o segundo número:</strong> Comece pela haste da direita (\\(3^0\\)). Para cada unidade a somar, ative a conta de cima (\\(+1\\)); para cada unidade a subtrair, ative a de baixo (\\(-1\\)).',
             'footer-sum-li3': '<strong class="text-teal-300">3) Ajuste os "vai-um" balanceados:</strong> Se uma haste ficar com duas contas ativas do mesmo lado (equivalente a \\(+2\\) ou \\(-2\\)), troque por um dígito balanceado e carregue para a próxima haste: \\(+2 = -1 + 1\\cdot 3\\) e \\(-2 = 1 - 1\\cdot 3\\).',
-            'footer-sum-note': 'Dica: quando ambas as contas tocam a barra na mesma haste, o valor local é \\(0\\) — isso ajuda a enxergar combinações como \\(1 + (-1) = 0\\). Você pode conferir o resultado na leitura em decimal e na notação matemática.',
+            'footer-sum-note': 'Dica: quando ambas as contas tocam a barra na mesma haste, o valor local é \\(0\\): isso ajuda a enxergar combinações como \\(1 + (-1) = 0\\). Você pode conferir o resultado na leitura em decimal e na notação matemática.',
 
             'footer-sum-table-title': 'Tabela de combinações para somar',
             'footer-sum-col1': 'Alvo (+n)',
@@ -150,7 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
             'soroban-li4': '<strong class="text-teal-300">Leitura da direita para a esquerda:</strong> Comece sempre pela haste de \\(3^0\\) (direita) ao somar/subtrair, tal como se procede no Soroban.',
             'soroban-li5': '<strong class="text-teal-300">Fluxo de transporte/empresta:</strong> Ao atingir \\(+2\\) ou \\(-2\\) numa haste, converta para um dígito balanceado e transporte/empreste para a próxima haste.',
             'clear-button': 'Limpar',
-            'invert-button': 'Inverter'
+            'invert-button': 'Inverter',
+            'decimal-input-label': 'Converter Decimal (-1093 a 1093):',
+            'apply-decimal-button': 'Aplicar'
         },
         'en': {
             'main-title': 'Balanced Ternary Abacus',
@@ -182,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'footer-sum-li1': '<strong class="text-teal-300">1) Set the first number:</strong> Click the beads to form the desired value. The decimal total is shown above.',
             'footer-sum-li2': '<strong class="text-teal-300">2) Add the second number:</strong> Start on the rightmost rod (\\(3^0\\)). For each unit to add, activate the top bead (\\(+1\\)); for each unit to subtract, activate the bottom bead (\\(-1\\)).',
             'footer-sum-li3': '<strong class="text-teal-300">3) Handle balanced carries:</strong> If a rod ends up with two active beads on the same side (equivalent to \\(+2\\) or \\(-2\\)), convert to a balanced digit and carry to the next rod: \\(+2 = -1 + 1\\cdot 3\\) and \\(-2 = 1 - 1\\cdot 3\\).',
-            'footer-sum-note': 'Tip: when both beads touch the bar on the same rod, the local value is \\(0\\) — this helps to see combinations like \\(1 + (-1) = 0\\). You can verify the result in the decimal reading and in the mathematical notation.',
+            'footer-sum-note': 'Tip: when both beads touch the bar on the same rod, the local value is \\(0\\): this helps to see combinations like \\(1 + (-1) = 0\\). You can verify the result in the decimal reading and in the mathematical notation.',
 
             'footer-sum-table-title': 'Addition combinations table',
             'footer-sum-col1': 'Target (+n)',
@@ -209,7 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
             'soroban-li4': '<strong class="text-teal-300">Read right-to-left:</strong> Always start with the \\(3^0\\) rod (right) when adding/subtracting, as done on the Soroban.',
             'soroban-li5': '<strong class="text-teal-300">Carry/borrow flow:</strong> When a rod reaches \\(+2\\) or \\(-2\\), convert to a balanced digit and carry/borrow to the next rod.',
             'clear-button': 'Clear',
-            'invert-button': 'Invert'
+            'invert-button': 'Invert',
+            'decimal-input-label': 'Decimal Converter (-1093 to 1093):',
+            'apply-decimal-button': 'Apply'
         }
     };
 
@@ -350,6 +358,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const invertBtnEl = document.getElementById('invert-button');
         if (invertBtnEl) invertBtnEl.textContent = lang['invert-button'];
 
+        if (decimalInputLabel && lang['decimal-input-label']) {
+            decimalInputLabel.textContent = lang['decimal-input-label'];
+        }
+        if (applyDecimalBtn && lang['apply-decimal-button']) {
+            applyDecimalBtn.textContent = lang['apply-decimal-button'];
+        }
+
         // Typeset only visible sections and the math notation line if present
         const toTypeset = [];
         const tutorialVisible = !document.getElementById('tutorial-content').classList.contains('hidden');
@@ -456,6 +471,64 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (_) { /* no-op */ }
     };
 
+    const setAbacusFromDecimal = (decimalVal) => {
+        let trits;
+        if (typeof window !== 'undefined' && window.TernaryMath && typeof window.TernaryMath.decimalToBalanced === 'function') {
+            trits = window.TernaryMath.decimalToBalanced(decimalVal, numRods);
+        } else {
+            trits = new Array(numRods).fill(0);
+            let n = Math.trunc(Number(decimalVal) || 0);
+            let idx = 0;
+            while (n !== 0 && idx < numRods) {
+                let rem = ((n % 3) + 3) % 3;
+                if (rem === 0) {
+                    trits[idx] = 0;
+                    n = Math.trunc(n / 3);
+                } else if (rem === 1) {
+                    trits[idx] = 1;
+                    n = Math.trunc((n - 1) / 3);
+                } else if (rem === 2) {
+                    trits[idx] = -1;
+                    n = Math.trunc((n + 1) / 3);
+                }
+                idx++;
+            }
+        }
+
+        for (let i = 0; i < numRods; i++) {
+            const rodEl = abacusRodsContainer.querySelector(`.rod[data-index="${i}"]`);
+            if (!rodEl) continue;
+            const topBead = rodEl.querySelector('.bead.top');
+            const bottomBead = rodEl.querySelector('.bead.bottom');
+            if (!topBead || !bottomBead) continue;
+
+            const trit = trits[i] || 0;
+            if (trit === 1) {
+                topBead.classList.add('active');
+                bottomBead.classList.remove('active');
+            } else if (trit === -1) {
+                bottomBead.classList.add('active');
+                topBead.classList.remove('active');
+            } else {
+                topBead.classList.remove('active');
+                bottomBead.classList.remove('active');
+            }
+            applyRodState(i, topBead, bottomBead);
+        }
+        updateDisplay();
+    };
+
+    if (decimalForm && decimalInput) {
+        decimalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = parseInt(decimalInput.value, 10);
+            if (Number.isNaN(val)) return;
+            const clamped = Math.max(-1093, Math.min(1093, val));
+            decimalInput.value = clamped;
+            setAbacusFromDecimal(clamped);
+        });
+    }
+
     const createAbacus = () => {
         abacusRodsContainer.innerHTML = '';
         for (let i = 0; i < numRods; i++) {
@@ -469,20 +542,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const topBead = document.createElement('div');
             topBead.classList.add('bead', 'top');
+            topBead.setAttribute('role', 'button');
+            topBead.setAttribute('tabindex', '0');
+            topBead.setAttribute('aria-label', `Haste 3^${i}, valor +1`);
             topBead.style.borderTopColor = COLOR_DEFAULT;
-            topBead.addEventListener('click', () => {
+
+            const handleTopAction = () => {
                 topBead.classList.toggle('active');
                 applyRodState(i, topBead, bottomBead);
                 updateDisplay();
+            };
+            topBead.addEventListener('click', handleTopAction);
+            topBead.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleTopAction();
+                }
             });
 
             const bottomBead = document.createElement('div');
             bottomBead.classList.add('bead', 'bottom');
+            bottomBead.setAttribute('role', 'button');
+            bottomBead.setAttribute('tabindex', '0');
+            bottomBead.setAttribute('aria-label', `Haste 3^${i}, valor -1`);
             bottomBead.style.borderBottomColor = COLOR_DEFAULT;
-            bottomBead.addEventListener('click', () => {
+
+            const handleBottomAction = () => {
                 bottomBead.classList.toggle('active');
                 applyRodState(i, topBead, bottomBead);
                 updateDisplay();
+            };
+            bottomBead.addEventListener('click', handleBottomAction);
+            bottomBead.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleBottomAction();
+                }
             });
 
             const topLabel = document.createElement('div');
@@ -507,60 +602,3 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLanguage();
     createAbacus();
 });
-
-// Register Service Worker for offline support with auto-refresh on update
-if ('serviceWorker' in navigator) {
-  const swUrl = 'service-worker.js';
-  let hasRefreshed = false;
-
-  function forceReloadOnce() {
-    if (hasRefreshed) return;
-    hasRefreshed = true;
-    // Ensure all assets are fetched fresh
-    if (location.search.includes('hard-refresh=1')) {
-      location.reload();
-    } else {
-      const url = new URL(location.href);
-      url.searchParams.set('hard-refresh', '1');
-      location.replace(url.toString());
-    }
-  }
-
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    // New SW controlling the page; reload to pick new assets
-    forceReloadOnce();
-  });
-
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register(swUrl).then((reg) => {
-      // If there's an updated worker waiting, ask it to activate immediately
-      if (reg.waiting) {
-        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-      }
-
-      // If a new worker is installing, listen for when it's ready
-      reg.addEventListener('updatefound', () => {
-        const newWorker = reg.installing;
-        if (!newWorker) return;
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed') {
-            // If there's an existing controller, a new version is available
-            if (navigator.serviceWorker.controller) {
-              newWorker.postMessage({ type: 'SKIP_WAITING' });
-            }
-          }
-        });
-      });
-    }).catch((err) => {
-      console.warn('SW registration failed', err);
-    });
-  });
-
-  // Listen for messages from the SW (e.g., activation notice)
-  navigator.serviceWorker.addEventListener('message', (event) => {
-    const data = event.data || {};
-    if (data.type === 'SW_ACTIVATED') {
-      forceReloadOnce();
-    }
-  });
-}

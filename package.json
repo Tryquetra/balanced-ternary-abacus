@@ -1,0 +1,18 @@
+{
+  "name": "balanced-ternary-abacus",
+  "version": "1.1.0",
+  "description": "Balanced Ternary Abacus | Heisanban",
+  "type": "module",
+  "scripts": {
+    "start": "bun server.js",
+    "test": "bun test"
+  },
+  "keywords": [
+    "balanced-ternary",
+    "abacus",
+    "heisanban",
+    "setun"
+  ],
+  "author": "Robson Cassiano",
+  "license": "MIT"
+}

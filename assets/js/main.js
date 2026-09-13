@@ -260,3 +260,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Registro do Service Worker para suporte offline com recarregamento na atualização
+if ('serviceWorker' in navigator) {
+  const swUrl = 'service-worker.js';
+  let hasRefreshed = false;
+
+  function forceReloadOnce() {
+    if (hasRefreshed) return;
+    hasRefreshed = true;
+    if (location.search.includes('hard-refresh=1')) {
+      location.reload();
+    } else {
+      const url = new URL(location.href);
+      url.searchParams.set('hard-refresh', '1');
+      location.replace(url.toString());
+    }
+  }
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    forceReloadOnce();
+  });
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(swUrl).then((reg) => {
+      if (reg.waiting) {
+        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+      }
+
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        if (!newWorker) return;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.postMessage({ type: 'SKIP_WAITING' });
+          }
+        });
+      });
+    }).catch((err) => {
+      console.warn('SW registration failed', err);
+    });
+  });
+
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    const data = event.data || {};
+    if (data.type === 'SW_ACTIVATED') {
+      forceReloadOnce();
+    }
+  });
+}

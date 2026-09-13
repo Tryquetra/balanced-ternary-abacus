@@ -95,7 +95,12 @@ body {
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, filter 0.2s ease;
+}
+
+.bead:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 6px #38bdf8);
 }
 
 .bead.top {

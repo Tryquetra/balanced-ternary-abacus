@@ -66,15 +66,13 @@
           "@id": "https://tryquetra.github.io/balanced-ternary-abacus/#webapp",
           "name": "Hei-San-Ban: Ábaco Ternário Balanceado",
           "alternateName": "Balanced Ternary Abacus",
-          "description": "Explorador interativo de lógica ternária balanceada. Aprenda computação ternária através de uma simulação visual de ábaco.",
+          "description": "Explorador interativo de lógica ternária balanceada. Simulação visual de ábaco com conversão em tempo real e renderização LaTeX.",
           "url": "https://tryquetra.github.io/balanced-ternary-abacus/",
           "applicationCategory": "EducationalApplication",
-          "operatingSystem": "Web",
-          "author": {
-            "@type": "Person",
-            "name": "Robson Cassiano",
-            "url": "https://eu.robsoncassiano.software"
-          },
+          "operatingSystem": "All",
+          "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "author": { "@id": "https://www.robsoncassiano.software/#mentor" },
+          "publisher": { "@id": "https://tryquetra.github.io/balanced-ternary-abacus/#organization" },
           "license": "https://opensource.org/licenses/MIT",
           "image": "https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/triquetra.webp",
           "offers": {
@@ -85,13 +83,71 @@
           "featureList": [
             "Balanced ternary logic simulation",
             "Real-time LaTeX math rendering",
+            "Direct decimal input to abacus bead positioning",
             "Interactive addition and subtraction tutorials",
+            "Accessible keyboard navigation (WCAG 2.1)",
             "Multi-language support (PT-BR/EN-US)",
             "PWA support for offline use"
           ]
         },
         {
+          "@type": "Organization",
+          "@id": "https://tryquetra.github.io/balanced-ternary-abacus/#organization",
+          "name": "Simple Software LTDA",
+          "url": "https://www.robsoncassiano.software/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://tryquetra.github.io/balanced-ternary-abacus/#logo",
+            "url": "https://raw.githubusercontent.com/Tryquetra/balanced-ternary-abacus/refs/heads/main/assets/favicons/apple-touch-icon.png",
+            "caption": "Simple Software"
+          },
+          "founder": { "@id": "https://www.robsoncassiano.software/#mentor" },
+          "sameAs": [
+            "https://www.robsoncassiano.software/",
+            "https://global.robsoncassiano.software/",
+            "https://github.com/SimpleSoftwareLTDA",
+            "https://github.com/Tryquetra",
+            "https://www.linkedin.com/company/simple-software-ltda",
+            "https://www.linkedin.com/in/robsoncassiano-software/",
+            "https://www.youtube.com/@RobsonCassianoSoftware"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://www.robsoncassiano.software/#mentor",
+          "name": "Robson Cassiano",
+          "jobTitle": "Software Engineer na Epic Games & Cambridge CELTA Certified Teacher",
+          "description": "Software Engineer na Epic Games. Ex-BTG Pactual, Fundador da Simple Software, Autor de Livros de Tecnologia na Amazon e Professor de Inglês certificado por Cambridge (CELTA).",
+          "image": "https://treinamento.robsoncassiano.software/img/mentor/robson-cassiano-mentor.webp",
+          "url": "https://www.robsoncassiano.software/",
+          "worksFor": { "@type": "Organization", "name": "Epic Games" },
+          "alumniOf": { "@type": "Organization", "name": "University of Cambridge (CELTA Certification)" },
+          "knowsAbout": [
+            "Software Engineering",
+            "Balanced Ternary Computing",
+            "Computer Architecture",
+            "Setun 1958",
+            "Mathematics"
+          ],
+          "sameAs": [
+            "https://www.robsoncassiano.software/",
+            "https://global.robsoncassiano.software/",
+            "https://eu.robsoncassiano.software/",
+            "https://github.com/RandintN",
+            "https://www.linkedin.com/in/robsoncassiano-software/",
+            "https://www.amazon.com.br/stores/Robson-Cassiano/author/B0FLN1QMCJ",
+            "https://www.goodreads.com/user/show/68023009-robson-cassiano",
+            "https://twitter.com/RobsonDev",
+            "https://www.youtube.com/@RobsonCassianoSoftware",
+            "https://instagram.com/robsoncassiano.software",
+            "https://www.facebook.com/RobsonCassianoSoftware/",
+            "https://randintn.substack.com",
+            "https://beacons.ai/robson.cassiano/portflio"
+          ]
+        },
+        {
           "@type": "FAQPage",
+          "@id": "https://tryquetra.github.io/balanced-ternary-abacus/#faq",
           "mainEntity": [
             {
               "@type": "Question",
@@ -113,7 +169,7 @@
         }
       ]
     }
-    </script>
+  </script>
 </head>
 
 <body class="bg-gray-900 text-gray-100 flex flex-col justify-center items-center min-h-screen">
@@ -239,6 +295,17 @@
       </div>
       <div id="total-value" class="abacus-value text-4xl" aria-live="polite">0</div>
       <div id="math-notation" class="text-gray-400 mt-4 text-sm font-mono min-h-[1.25rem]"></div>
+
+      <!-- Conversor Decimal Direto -->
+      <form id="decimal-form" class="mt-4 flex flex-wrap items-center justify-center gap-2" role="search">
+        <label for="decimal-input" id="decimal-input-label" class="text-xs text-gray-300 font-medium">Converter Decimal (-1093 a 1093):</label>
+        <input type="number" id="decimal-input" min="-1093" max="1093" placeholder="Ex: 42"
+          class="w-28 px-2 py-1 text-sm rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:border-teal-400 text-center" />
+        <button type="submit" id="apply-decimal-button"
+          class="text-xs px-3 py-1 rounded bg-teal-600 hover:bg-teal-500 text-white font-medium transition-colors border border-teal-500">
+          Aplicar
+        </button>
+      </form>
     </div>
 
     <nav class="mt-8 flex flex-wrap items-center justify-center gap-6 text-center text-sm text-gray-400"
@@ -359,7 +426,7 @@
       </div>
 
       <p id="footer-sum-note" class="mt-3 text-gray-400 text-sm">Dica: quando ambas as contas tocam a barra na mesma
-        haste, o valor local é \(0\) — isso ajuda a enxergar combinações como \(1 + (-1) = 0\). Você pode conferir o
+        haste, o valor local é \(0\): isso ajuda a enxergar combinações como \(1 + (-1) = 0\). Você pode conferir o
         resultado na leitura em decimal e na notação matemática.</p>
     </section>
 
@@ -461,8 +528,9 @@
     <p class="mt-1">Live Long and Prosper 🖖🏻</p>
   </footer>
 
-  <script src="assets/js/app.js?v=20251109" defer></script>
-  <script src="assets/js/main.js?v=20251109" defer></script>
+  <script src="assets/js/ternary-math.js?v=20260913" defer></script>
+  <script src="assets/js/app.js?v=20260913" defer></script>
+  <script src="assets/js/main.js?v=20260913" defer></script>
 </body>
 
 </html>
