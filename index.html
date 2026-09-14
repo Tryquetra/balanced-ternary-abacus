@@ -11,7 +11,7 @@
   <title>Ábaco Ternário Balanceado: Simulador Online de Base 3</title>
 
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdn.tailwindcss.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://raw.githubusercontent.com https://treinamento.robsoncassiano.software; font-src 'self' data: https://cdn.jsdelivr.net; connect-src 'self' https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdn.tailwindcss.com; img-src 'self' data: https://raw.githubusercontent.com https://treinamento.robsoncassiano.software; font-src 'self' data: https://cdn.jsdelivr.net; connect-src 'self' https://cdn.jsdelivr.net https://static.cloudflareinsights.com; base-uri 'self'; form-action 'self';">
 
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
@@ -56,7 +56,7 @@
   <link rel="alternate" hreflang="en-US" href="https://bta.robsoncassiano.software/?lang=en-us">
   <link rel="alternate" hreflang="x-default" href="https://bta.robsoncassiano.software/">
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
   <link rel="stylesheet" href="assets/css/styles.css?v=20260913">
 
   <!-- JSON-LD Markup -->
@@ -218,8 +218,8 @@
           <path
             d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" />
         </svg>
-        <button type="button" class="lang-btn" data-lang="pt" aria-label="Mudar para Português" aria-pressed="false">PT</button>
-        <button type="button" class="lang-btn" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+        <button type="button" class="lang-btn" data-lang="pt" aria-label="PT: Português" aria-pressed="false">PT</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-label="EN: English" aria-pressed="false">EN</button>
       </div>
       <label for="lang-select" class="sr-only">Idioma</label>
       <select id="lang-select" class="sr-only" tabindex="-1" aria-hidden="true">
@@ -338,7 +338,7 @@
         <input type="number" id="decimal-input" min="-1093" max="1093" placeholder="Ex: 42"
           class="w-28 px-2 py-1 text-sm rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:border-teal-400 text-center" />
         <button type="submit" id="apply-decimal-button"
-          class="text-xs px-3 py-1 rounded bg-teal-600 hover:bg-teal-500 text-white font-medium transition-colors border border-teal-500">
+          class="text-xs px-3 py-1.5 rounded bg-teal-700 hover:bg-teal-600 text-white font-semibold transition-colors border border-teal-600 shadow-xs">
           Converter no Ábaco
         </button>
       </form>
