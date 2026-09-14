@@ -6,7 +6,7 @@
   Caches core app shell and provides runtime caching for other requests (e.g., CDN assets).
 */
 
-const CACHE_VERSION = 'v6';
+const CACHE_VERSION = 'v7';
 const APP_CACHE = `abaco-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 
@@ -102,32 +102,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cross-origin: restringe a origens CDN confiáveis com fallback em cache
-  const ALLOWED_CDN_ORIGINS = new Set([
-    'https://cdn.jsdelivr.net',
-    'https://cdn.tailwindcss.com',
-    'https://raw.githubusercontent.com'
-  ]);
-
-  if (!ALLOWED_CDN_ORIGINS.has(url.origin)) {
-    return;
-  }
-
-  event.respondWith(
-    (async () => {
-      try {
-        const fresh = await fetch(request);
-        if (fresh && fresh.status === 200) {
-          const cache = await caches.open(RUNTIME_CACHE);
-          cache.put(request, fresh.clone());
-        }
-        return fresh;
-      } catch (e) {
-        const cache = await caches.open(RUNTIME_CACHE);
-        const cached = await cache.match(request);
-        if (cached) return cached;
-        return Response.error();
-      }
-    })()
-  );
+  // Cross-origin: deixa o navegador gerenciar via cache HTTP nativo, evitando bloqueios
+  return;
 });
+
