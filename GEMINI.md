@@ -4,7 +4,7 @@
 **Hei-San-Ban** (平三盤) is an interactive, web-based implementation of a balanced ternary abacus. It serves as an educational tool for understanding the balanced ternary number system (digits -1, 0, +1).
 
 *   **Type:** Static Web Application (PWA)
-*   **Hosting:** Optimized for static hosting (e.g., GitHub Pages).
+*   **Hosting:** Optimized for static hosting (e.g., Cloudflare Pages).
 *   **License:** MIT
 
 ## Tech Stack

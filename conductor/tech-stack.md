@@ -12,7 +12,7 @@
 ## Features & Paradigms
 *   **SPA (Single Page Application):** The entire application is contained in a single HTML entry point.
 *   **PWA (Progressive Web App):** Includes a `service-worker.js` and `site.webmanifest` for offline support and mobile installation.
-*   **Static Hosting:** Designed for zero-backend environments like GitHub Pages.
+*   **Static Hosting:** Designed for zero-backend environments like Cloudflare Pages.
 
 ## Development Tools
 *   **Gemini CLI:** AI-assisted development and codebase management.
