@@ -84,7 +84,13 @@ function setLanguage(lang) {
   if (typeof window.setPageLanguage === 'function') {
     try { window.setPageLanguage(safeLang, { suppressUrl: true }); } catch (_) { /* ignore */ }
   }
-  // Atualiza UI do seletor
+  // Atualiza UI dos botões segmentados de idioma
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.getAttribute('data-lang') === safeLang;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+  // Atualiza UI do seletor legado se presente
   const select = document.getElementById('lang-select');
   if (select && select.value !== safeLang) select.value = safeLang;
 }
@@ -231,7 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const initial = getLangFromUrl();
   setLanguage(initial);
 
-  // Seletor de idioma
+  // Botões segmentados de idioma
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetLang = btn.getAttribute('data-lang');
+      if (targetLang) setLanguage(targetLang);
+    });
+  });
+
+  // Seletor de idioma (legado/fallback)
   const select = document.getElementById('lang-select');
   if (select) {
     select.value = initial;
