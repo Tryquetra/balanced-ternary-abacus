@@ -264,18 +264,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // Registro do Service Worker para suporte offline com recarregamento na atualização
 if ('serviceWorker' in navigator) {
   const swUrl = 'service-worker.js';
-  let hasRefreshed = false;
-
   function forceReloadOnce() {
-    if (hasRefreshed) return;
-    hasRefreshed = true;
-    if (location.search.includes('hard-refresh=1')) {
-      location.reload();
-    } else {
-      const url = new URL(location.href);
-      url.searchParams.set('hard-refresh', '1');
-      location.replace(url.toString());
-    }
+    if (sessionStorage.getItem('sw_refreshed')) return;
+    sessionStorage.setItem('sw_refreshed', 'true');
+    setTimeout(() => {
+      sessionStorage.removeItem('sw_refreshed');
+    }, 10000);
+    window.location.reload();
   }
 
   navigator.serviceWorker.addEventListener('controllerchange', () => {

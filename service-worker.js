@@ -6,14 +6,13 @@
   Caches core app shell and provides runtime caching for other requests (e.g., CDN assets).
 */
 
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 const APP_CACHE = `abaco-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 
-// List of local assets to precache
+// List of local assets to precache (sem index.html que retorna 308 no Cloudflare Pages)
 const PRECACHE_ASSETS = [
   './',
-  './index.html',
   './assets/css/styles.css',
   './assets/js/ternary-math.js',
   './assets/js/app.js',
@@ -70,21 +69,19 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
 
-  // Navigation requests: always serve app shell (index.html) to support SPA routes on static hosts
+  // Navigation requests: network-first with cache fallback
   if (request.mode === 'navigate') {
     event.respondWith(
-      (async () => {
-        try {
-          const freshShell = await fetch('./index.html', { cache: 'no-cache' });
+      fetch(request).then(async (response) => {
+        if (response && response.status === 200) {
           const cache = await caches.open(APP_CACHE);
-          cache.put('./index.html', freshShell.clone());
-          return freshShell;
-        } catch (err) {
-          const cache = await caches.open(APP_CACHE);
-          const cachedShell = await cache.match('./index.html');
-          return cachedShell || Response.error();
+          cache.put(request, response.clone());
         }
-      })()
+        return response;
+      }).catch(async () => {
+        const cache = await caches.open(APP_CACHE);
+        return (await cache.match(request)) || (await cache.match('./')) || Response.error();
+      })
     );
     return;
   }
@@ -99,7 +96,7 @@ self.addEventListener('fetch', (event) => {
           const responseToCache = response.clone();
           caches.open(APP_CACHE).then((cache) => cache.put(request, responseToCache));
           return response;
-        }).catch(() => caches.match('./index.html'));
+        }).catch(() => caches.match('./'));
       })
     );
     return;
