@@ -3,7 +3,7 @@
 > Simulador interativo de lógica ternária balanceada (dígitos: -1, 0, +1) com conversão em tempo real e visualização polinomial.
 
 - Repositório: https://github.com/Tryquetra/balanced-ternary-abacus
-- Aplicação Online: https://tryquetra.github.io/balanced-ternary-abacus/
+- Aplicação Online: https://bta.robsoncassiano.software/
 - Autor: Robson Cassiano (Simple Software LTDA)
 - Licença: MIT
 
@@ -26,4 +26,4 @@ V = \sum_{i=0}^{n} t_i \cdot 3^i, onde t_i \in \{-1, 0, 1\}
 - `tests/ternary-math.test.js`: Suíte de validação e testes de estresse executados com Bun.
 
 ## Documentação Completa
-Para ler o arquivo de contexto expandido, acesse [/llms-full.txt](https://tryquetra.github.io/balanced-ternary-abacus/llms-full.txt).
+Para ler o arquivo de contexto expandido, acesse [/llms-full.txt](https://bta.robsoncassiano.software/llms-full.txt).

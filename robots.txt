@@ -27,4 +27,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap for better indexing
-Sitemap: https://tryquetra.github.io/balanced-ternary-abacus/sitemap.xml
+Sitemap: https://bta.robsoncassiano.software/sitemap.xml

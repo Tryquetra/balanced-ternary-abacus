@@ -4,7 +4,7 @@
 Hei-San-Ban é uma aplicação web progressiva (PWA) de código aberto concebida para o ensino e exploração da computação ternária balanceada.
 - Organização: Tryquetra / Simple Software LTDA
 - Arquiteto: Robson Cassiano
-- URL: https://tryquetra.github.io/balanced-ternary-abacus/
+- URL: https://bta.robsoncassiano.software/
 - Licença: MIT
 
 ## 2. Fundamentos da Lógica Ternária Balanceada

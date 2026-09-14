@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://tryquetra.github.io/balanced-ternary-abacus/</loc>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://tryquetra.github.io/balanced-ternary-abacus/"/>
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://tryquetra.github.io/balanced-ternary-abacus/?lang=en-us"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://tryquetra.github.io/balanced-ternary-abacus/"/>
-    <lastmod>2026-09-13</lastmod>
+    <loc>https://bta.robsoncassiano.software/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://bta.robsoncassiano.software/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://bta.robsoncassiano.software/?lang=en-us"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bta.robsoncassiano.software/"/>
+    <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
