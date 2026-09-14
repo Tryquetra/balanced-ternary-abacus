@@ -6,7 +6,7 @@
   Caches core app shell and provides runtime caching for other requests (e.g., CDN assets).
 */
 
-const CACHE_VERSION = 'v7';
+const CACHE_VERSION = 'v8';
 const APP_CACHE = `abaco-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 
