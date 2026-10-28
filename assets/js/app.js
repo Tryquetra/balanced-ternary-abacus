@@ -90,16 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
         return window.MathJax.typesetPromise(arr);
     };
 
-    // Utility to wire a simple show/hide toggle and typeset MathJax when shown
-    const wireToggle = (btn, content) => {
+    // Acordeão dos guias: abrir um painel fecha o anterior.
+    // Clicar no painel aberto recolhe, permitindo deixar todos fechados.
+    const accordionItems = [];
+    const setPanelExpanded = (item, expanded) => {
+        item.content.classList.toggle('hidden', !expanded);
+        item.btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    };
+    const registerAccordionItem = (btn, content) => {
+        const item = { btn, content };
+        accordionItems.push(item);
         btn.addEventListener('click', async () => {
-            const isCurrentlyHidden = content.classList.contains('hidden');
-            content.classList.toggle('hidden');
-            btn.setAttribute('aria-expanded', isCurrentlyHidden ? 'true' : 'false');
-            if (isCurrentlyHidden) {
+            const willOpen = content.classList.contains('hidden');
+            for (const other of accordionItems) {
+                if (other !== item) setPanelExpanded(other, false);
+            }
+            setPanelExpanded(item, willOpen);
+            if (willOpen) {
                 await typesetElements(content);
             }
-        }, { passive: true });
+        });
     };
 
     const translations = {
@@ -391,11 +401,11 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplay();
     };
 
-    // Wire foldable sections with a small helper (behavior unchanged)
-    wireToggle(tutorialToggleBtn, tutorialContentDiv);
-    wireToggle(sumToggleBtn, sumContentDiv);
-    wireToggle(subToggleBtn, subContentDiv);
-    wireToggle(sorobanToggleBtn, sorobanContentDiv);
+    // Guias didáticos: acordeão exclusivo
+    registerAccordionItem(tutorialToggleBtn, tutorialContentDiv);
+    registerAccordionItem(sumToggleBtn, sumContentDiv);
+    registerAccordionItem(subToggleBtn, subContentDiv);
+    registerAccordionItem(sorobanToggleBtn, sorobanContentDiv);
 
     clearButton.addEventListener('click', () => {
         rodValues.fill(0);

@@ -439,6 +439,11 @@ body.light .lang-btn.active {
   clip-path: inset(50%);
 }
 
+/* O estado recolhido dos guias não pode depender do Tailwind via CDN */
+.hidden {
+  display: none;
+}
+
 /* Responsividade básica */
 @media (max-width: 480px) {
   .menu-dropdown {
