@@ -138,3 +138,27 @@ assert sum(t * 3**i for i, t in enumerate(trits)) == 42
 ```
 
 No STL exportado, a barra deve medir 170 × 12 × 6 mm e a conta 16 × 16 × 8 mm.
+
+## 8. Variantes visuais
+
+`scripts/abacus_variants.py` reaproveita o mesmo mecanismo (7 hastes, duas
+contas, curso 45 mm) e troca só a linguagem material/estrutural. Não exporta
+STL: serve para explorar conceito, não para imprimir.
+
+| Slug | Conceito |
+|---|---|
+| `monolito` | bloco único usinado, alumínio anodizado grafite, contas cobre |
+| `trelica` | laterais em treliça triangular generativa, cerâmica fosca, contas facetadas |
+| `cristal` | acrílico cristal, ferragens mínimas, contas em latão polido |
+| `trit` | chassi preto com fita emissiva por haste: ciano +1, magenta −1, apagado 0 |
+| `orbital` | leitura radial, sete raios em bronze sobre pedestal, contas em pátina |
+| `madeira` | compensado de bétula com raios grandes, contas pretas foscas |
+
+```bash
+blender --background --python scripts/abacus_variants.py -- /tmp/abaco-variants
+blender --background --python scripts/abacus_variants.py -- /tmp/abaco-variants cristal
+```
+
+Os renders de referência ficam em `concepts/<slug>.png`, 800 × 600, Cycles 24
+amostras com denoise. `frame_camera()` enquadra pela esfera envolvente e ajusta
+`clip_end` ao raio: sem isso, o orbital (1,3 m de câmera) renderiza preto.
