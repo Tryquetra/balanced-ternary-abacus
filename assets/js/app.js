@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const translations = {
         'pt': {
+            'document-title': 'Ábaco Ternário Balanceado: Simulador Online de Base 3',
             'main-title': 'Ábaco Ternário Balanceado',
             'description': 'Mova as contas para somar (+1) ou subtrair (-1). Observe a notação polinomial se transformar instantaneamente a cada movimento.',
             'total-title': 'Valor Decimal',
@@ -177,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'apply-decimal-button': 'Converter no Ábaco'
         },
         'en': {
+            'document-title': 'Balanced Ternary Abacus: Online Base 3 Simulator',
             'main-title': 'Balanced Ternary Abacus',
             'description': 'Move the beads to add (+1) or subtract (-1). Watch the polynomial notation update instantly with every move.',
             'total-title': 'Decimal Value',
@@ -274,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const applyDocumentLangMeta = () => {
-        const htmlLang = currentLang === 'en' ? 'en-us' : 'pt-br';
+        const htmlLang = currentLang === 'en' ? 'en-US' : 'pt-BR';
         const ogLocale = currentLang === 'en' ? 'en_US' : 'pt_BR';
         document.documentElement.lang = htmlLang;
         const ogMeta = document.querySelector('meta[property="og:locale"]');
@@ -285,7 +287,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateUrlForLang = (lang, usePush = false) => {
         try {
             const url = new URL(location.href);
-            url.searchParams.set('lang', langToSeg(lang));
+            if (lang === 'pt') {
+                // pt-BR é o idioma canônico, servido sem parâmetro
+                url.searchParams.delete('lang');
+            } else {
+                url.searchParams.set('lang', langToSeg(lang));
+            }
             const fn = usePush ? history.pushState.bind(history) : history.replaceState.bind(history);
             fn(null, '', url.toString());
         } catch (e) {
@@ -311,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (translationBtn) translationBtn.textContent = currentLang.toUpperCase();
 
         const lang = translations[currentLang];
-        document.title = lang['main-title'];
+        document.title = lang['document-title'];
         document.getElementById('main-title').textContent = lang['main-title'];
         document.getElementById('description').textContent = lang['description'];
         document.getElementById('total-title').textContent = lang['total-title'];

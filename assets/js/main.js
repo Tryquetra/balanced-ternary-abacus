@@ -27,18 +27,35 @@ function normalizeLang(raw) {
   return null;
 }
 
+let activeLang = 'pt';
+
+const LANG_KEY = 'lang';
+
+// Segmento canônico, idêntico ao usado em hreflang e sitemap.xml
+function langToSegment(lang) {
+  return lang === 'en' ? 'en-us' : 'pt-br';
+}
+
 function getLangFromUrl() {
   const params = new URLSearchParams(window.location.search);
-  const q = params.get('lang');
-  const urlLang = normalizeLang(q);
+  const urlLang = normalizeLang(params.get('lang'));
   if (urlLang) return urlLang;
-  // fallback navegador
-  return normalizeLang(navigator.language || navigator.userLanguage) || 'en';
+  try {
+    const stored = normalizeLang(localStorage.getItem(LANG_KEY));
+    if (stored) return stored;
+  } catch (_) { /* storage indisponível */ }
+  // O documento canônico é pt-BR; o idioma do navegador não decide o conteúdo
+  return normalizeLang(document.documentElement.lang) || 'pt';
 }
 
 function updateLangInUrl(lang) {
   const url = new URL(window.location.href);
-  url.searchParams.set('lang', lang);
+  // pt-BR é o idioma do documento canônico (URL sem parâmetro), igual ao hreflang
+  if (lang === 'pt') {
+    url.searchParams.delete('lang');
+  } else {
+    url.searchParams.set('lang', langToSegment(lang));
+  }
   // Atualiza sem recarregar
   window.history.replaceState({}, '', url);
 }
@@ -76,6 +93,8 @@ function updateMenuLinksLang(lang) {
 
 function setLanguage(lang) {
   const safeLang = (lang === 'pt' || lang === 'en') ? lang : 'en';
+  activeLang = safeLang;
+  try { localStorage.setItem(LANG_KEY, safeLang); } catch (_) { /* storage indisponível */ }
   setDocumentLang(safeLang);
   applyTranslations(safeLang);
   updateLangInUrl(safeLang);
