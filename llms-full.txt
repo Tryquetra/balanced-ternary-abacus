@@ -46,12 +46,13 @@ Em 1958, na Universidade Estatal de Moscou, Nikolai Brusentsov e Sergei Sobolev 
 
 ## 4. Estrutura de Código do Projeto
 - `assets/js/ternary-math.js`: Métodos puros e testados para conversão e aritmética.
-  - `decimalToBalancedTernary(n, minRods)`: Converte inteiros em array de trits.
-  - `balancedTernaryToDecimal(trits)`: Converte array de trits de volta ao valor decimal.
-  - `invertBalancedTernary(trits)`: Inverte sinais de todos os trits.
-  - `addBalancedTernary(a, b)`: Executa adição com vai-um balanceado.
+  - `decimalToBalanced(n, numRods)`: Converte inteiros em array de trits.
+  - `balancedToDecimal(trits)`: Converte array de trits de volta ao valor decimal.
+  - `invertTrits(trits)`: Inverte sinais de todos os trits.
+  - `addTrits(a, b, numRods)`: Executa adição com vai-um balanceado.
+  - `getCapacity(numRods)`: Limites mínimo e máximo representáveis.
 - `assets/js/app.js`: Renderização de contas ativas, rótulos de acessibilidade ARIA e visor de fórmulas.
 - `assets/js/main.js`: Troca de idiomas dinâmico, alternador de tema e ciclo de vida do Service Worker.
-- `service-worker.js`: Cache offline resiliente com `ignoreSearch: true`.
+- `service-worker.js`: Cache offline resiliente; a URL exata dos ativos é a chave, então o sufixo `?v=` do `index.html` invalida o cache. Scripts de CDN (Tailwind, MathJax) ficam no cache de runtime.
 - `server.js`: Servidor local seguro com validação canônica de caminhos com Bun.
 - `tests/ternary-math.test.js`: Casos de teste rigorosos cobrindo operações fundamentais e limites extremos.

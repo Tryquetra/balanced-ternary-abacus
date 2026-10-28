@@ -34,7 +34,7 @@ This repository hosts an interactive implementation of the Hei-San-Ban, serving 
 ### Features
 - Responsive, interactive UI (top/bottom beads touch the center bar)
 - Decimal total and MathJax-rendered notation
-- Bilingual content (PT/EN) with a toggle button
+- Bilingual content (PT/EN) with a segmented control in the top bar
 - Soroban-inspired tips and foldable tutorial/add/subtract sections
 - PWA with offline support after the first visit
 
@@ -61,7 +61,7 @@ Este repositório contém uma implementação interativa do 平三盤, servindo 
 ### Recursos
 - Interface responsiva e interativa (contas superiores/inferiores tocam a barra central)
 - Exibição do total em decimal e notação matemática com LaTeX
-- Conteúdo bilíngue (PT/EN) com troca por botão
+- Conteúdo bilíngue (PT/EN) com controle segmentado na barra superior
 - Dicas inspiradas no Soroban e seções dobráveis de tutorial/como somar/como subtrair
 - PWA com suporte offline após a primeira visita
 
