@@ -159,6 +159,6 @@ blender --background --python scripts/abacus_variants.py -- /tmp/abaco-variants
 blender --background --python scripts/abacus_variants.py -- /tmp/abaco-variants cristal
 ```
 
-Os renders de referência ficam em `concepts/<slug>.png`, 800 × 600, Cycles 24
+Os renders de referência ficam em `concepts/<slug>.png`, 1200 × 900, Cycles 64
 amostras com denoise. `frame_camera()` enquadra pela esfera envolvente e ajusta
 `clip_end` ao raio: sem isso, o orbital (1,3 m de câmera) renderiza preto.
