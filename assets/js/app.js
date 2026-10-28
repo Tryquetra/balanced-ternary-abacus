@@ -14,22 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sorobanContentDiv = document.getElementById('soroban-content');
     const clearButton = document.getElementById('clear-button');
     const invertButton = document.getElementById('invert-button');
-    const translationBtn = document.getElementById('translation-button');
-    const githubLink = document.querySelector('.github-link');
     const decimalForm = document.getElementById('decimal-form');
     const decimalInput = document.getElementById('decimal-input');
     const decimalInputLabel = document.getElementById('decimal-input-label');
     const applyDecimalBtn = document.getElementById('apply-decimal-button');
-
-    // Hide top-corner icons when the page is scrolled down; show them only at the very top
-    const updateTopIconsVisibility = () => {
-        const atTop = (window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0) <= 0;
-        if (translationBtn) translationBtn.style.display = atTop ? '' : 'none';
-        if (githubLink) githubLink.style.display = atTop ? '' : 'none';
-    };
-    // Initialize and bind scroll listener
-    updateTopIconsVisibility();
-    window.addEventListener('scroll', updateTopIconsVisibility, { passive: true });
 
     // Constants for bead colors with high WCAG contrast
     const COLOR_DEFAULT = '#48bb78';
@@ -314,9 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateLanguage = async () => {
         // Reflect language in <html lang> and social meta
         applyDocumentLangMeta();
-        // Ensure button label reflects active language
-        if (translationBtn) translationBtn.textContent = currentLang.toUpperCase();
-
         const lang = translations[currentLang];
         document.title = lang['document-title'];
         document.getElementById('main-title').textContent = lang['main-title'];
@@ -400,17 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sumVisible) toTypeset.push(document.getElementById('sum-content'));
         if (subVisible) toTypeset.push(document.getElementById('sub-content'));
         if (sorobanVisible) toTypeset.push(document.getElementById('soroban-content'));
-        const notationText = document.getElementById('math-notation').textContent || '';
-        if (notationText.includes('\\(')) toTypeset.push(document.getElementById('math-notation'));
         if (toTypeset.length) await typesetElements(toTypeset);
-    };
 
-    translationBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'pt' ? 'en' : 'pt';
-        updateLanguage();
-        // Update the URL to reflect the selected language
-        updateUrlForLang(currentLang, true);
-    });
+        // A notação falada depende do idioma ativo
+        updateDisplay();
+    };
 
     // Wire foldable sections with a small helper (behavior unchanged)
     wireToggle(tutorialToggleBtn, tutorialContentDiv);
@@ -456,20 +435,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateDisplay = () => {
         let total = 0;
         const terms = [];
-        for (let i = 0; i < numRods; i++) {
+        const spokenTerms = [];
+        const minusWord = currentLang === 'pt' ? 'menos' : 'minus';
+        const powerWord = currentLang === 'pt' ? 'elevado a' : 'to the power of';
+        for (let i = numRods - 1; i >= 0; i--) {
             const value = rodValues[i];
             total += value * POW3[i];
-            if (value !== 0) {
-                const signStr = value === -1 ? '(-1)' : '1';
-                terms.unshift(`${signStr} &middot; 3<sup>${i}</sup>`);
-            }
+            if (value === 0) continue;
+            terms.push(`${value === -1 ? '(-1)' : '1'} &middot; 3<sup>${i}</sup>`);
+            spokenTerms.push(`${value === -1 ? minusWord + ' ' : ''}3 ${powerWord} ${i}`);
         }
 
         totalValueDisplay.textContent = total;
-        mathNotationDisplay.innerHTML = terms.length ? terms.join(' + ') : '';
+        mathNotationDisplay.innerHTML = terms.length
+            ? `<span aria-hidden="true">${terms.join(' + ')}</span>` +
+              `<span class="sr-only">${spokenTerms.join(', ')}</span>`
+            : '';
     };
 
-    // Expose a global setter so the new <select id="lang-select"> can drive page translations too
+    // Expõe um setter global para o main.js dirigir as traduções do conteúdo
     window.setPageLanguage = function(lang, opts) {
         try {
             const safe = (lang === 'en' || lang === 'pt') ? lang : 'en';

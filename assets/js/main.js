@@ -109,9 +109,6 @@ function setLanguage(lang) {
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
-  // Atualiza UI do seletor legado se presente
-  const select = document.getElementById('lang-select');
-  if (select && select.value !== safeLang) select.value = safeLang;
 }
 
 // ===== Menu: abrir/fechar/toggle, clique fora, ESC, focus-trap =====
@@ -263,13 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetLang) setLanguage(targetLang);
     });
   });
-
-  // Seletor de idioma (legado/fallback)
-  const select = document.getElementById('lang-select');
-  if (select) {
-    select.value = initial;
-    select.addEventListener('change', () => setLanguage(select.value));
-  }
 
   // Toggle de menu
   const btn = document.getElementById('app-menu-toggle');
