@@ -1,6 +1,6 @@
 ---
 name: heisanban
-description: "Trabalhar no Hei-San-Ban, o ábaco ternário balanceado: repositório Tryquetra/balanced-ternary-abacus (site em bta.robsoncassiano.software, clone local em /home/robson/coding/bta-clone), app estático com 7 hastes, trits -1/0/+1, i18n PT/EN, PWA offline e deploy em Cloudflare Pages; inclui o modelo físico do ábaco no Blender (script paramétrico verificado, export STL para impressão 3D). Use quando o pedido envolver esse repo, o ábaco ternário, o modelo 3D ou a versão imprimível. Triggers: heisanban, hei-san-ban, ábaco ternário, ábaco balanceado, balanced ternary abacus, bta.robsoncassiano.software, balanced-ternary-abacus, trit, hastes 729, modelo 3D do ábaco, ábaco para impressão 3D, STL do ábaco, Blender ábaco."
+description: "Trabalhar no Hei-San-Ban, o ábaco ternário balanceado: repositório Tryquetra/balanced-ternary-abacus (site em bta.robsoncassiano.software, clone local em /home/robson/coding/heisanban), app estático com 7 hastes, trits -1/0/+1, i18n PT/EN, PWA offline e deploy em Cloudflare Pages; inclui o modelo físico do ábaco no Blender (script paramétrico verificado, export STL para impressão 3D). Use quando o pedido envolver esse repo, o ábaco ternário, o modelo 3D ou a versão imprimível. Triggers: heisanban, hei-san-ban, ábaco ternário, ábaco balanceado, balanced ternary abacus, bta.robsoncassiano.software, balanced-ternary-abacus, trit, hastes 729, modelo 3D do ábaco, ábaco para impressão 3D, STL do ábaco, Blender ábaco."
 triggers:
   - heisanban
   - hei-san-ban
@@ -27,18 +27,18 @@ paramétrico para impressão 3D, gerado no Blender.
 | | |
 |---|---|
 | Repo | `github.com/Tryquetra/balanced-ternary-abacus` (branch `main`) |
-| Clone local | `/home/robson/coding/bta-clone` |
+| Clone local | `/home/robson/coding/heisanban` |
 | Produção | `https://bta.robsoncassiano.software/` (Cloudflare Pages) |
 | Stack | HTML + JS puro, Tailwind via CDN, Bun no dev, sem build |
 | Testes | `bun test` (10 testes em `tests/ternary-math.test.js`) |
 
-**Cuidado:** `/home/robson/coding/hei-san-ban` **não é o repositório**. É uma
-cópia divergente, sem `.git`, com outro domínio (`heisanban.robsoncassiano.software`),
-outro `app.js` (261 linhas contra ~600) e MathJax quebrado. Nunca edite lá
-achando que está no projeto.
+**Cuidado:** existe um clone obsoleto em `/home/robson/coding/balanced-ternary-abacus`
+(mesmo remote, parado em `eb2fc91`, 2026-09-13, histórico divergente do atual).
+Não edite lá. O diretório ativo é `/home/robson/coding/heisanban`, com a skill
+em `.omp/skills/heisanban/` versionada junto do código.
 
 ```bash
-cd /home/robson/coding/bta-clone
+cd /home/robson/coding/heisanban
 bun test                    # 10 testes
 bun server.js               # http://localhost:8000 (porta fixa, ignora PORT)
 git log --oneline -5
@@ -142,7 +142,7 @@ Fluxo recomendado:
 Antes de dizer que terminou:
 
 ```bash
-cd /home/robson/coding/bta-clone
+cd /home/robson/coding/heisanban
 bun test                                   # 10 pass
 bun server.js &                            # :8000
 curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/

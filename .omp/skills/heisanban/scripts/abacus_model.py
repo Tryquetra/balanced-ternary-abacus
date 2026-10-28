@@ -5,7 +5,7 @@ Headless:
     blender --background --python abacus_model.py -- /tmp/abaco-stl
 
 Via MCP (execute_blender_code):
-    exec(open('/home/robson/coding/bta-clone/.omp/skills/heisanban/scripts/abacus_model.py').read())
+    exec(open('/home/robson/coding/heisanban/.omp/skills/heisanban/scripts/abacus_model.py').read())
     info = build(); apply_value(42)
 
 Convenção: x cresce para a direita, então a haste mais à esquerda é a mais

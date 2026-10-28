@@ -65,7 +65,7 @@ blender --background --python scripts/abacus_model.py -- /tmp/abaco-stl
 ### Via MCP, com o Blender aberto
 
 ```python
-exec(open('/home/robson/coding/bta-clone/.omp/skills/heisanban/scripts/abacus_model.py').read())
+exec(open('/home/robson/coding/heisanban/.omp/skills/heisanban/scripts/abacus_model.py').read())
 info = build(num_rods=7, bead_away=True)   # estado neutro
 apply_value(42)                            # posiciona as contas para 42
 ```
