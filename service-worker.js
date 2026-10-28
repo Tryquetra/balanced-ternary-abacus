@@ -6,9 +6,15 @@
   Caches core app shell and provides runtime caching for other requests (e.g., CDN assets).
 */
 
-const CACHE_VERSION = 'v10';
+const CACHE_VERSION = 'v11';
 const APP_CACHE = `abaco-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
+
+// Origens de CDN permitidas no CSP cujo conteúdo precisa sobreviver offline
+const CDN_ORIGINS = new Set([
+  'https://cdn.tailwindcss.com',
+  'https://cdn.jsdelivr.net'
+]);
 
 // List of local assets to precache (sem index.html que retorna 308 no Cloudflare Pages)
 const PRECACHE_ASSETS = [
@@ -86,10 +92,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Same-origin: cache-first strategy for local assets
+  // Same-origin: cache-first strategy for local assets.
+  // A URL exata é usada como chave para que o sufixo ?v= do index.html invalide o cache.
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(request, { ignoreSearch: true }).then((cached) => {
+      caches.match(request).then((cached) => {
         if (cached) return cached;
         return fetch(request).then((response) => {
           if (!response || response.status !== 200) return response;
@@ -102,7 +109,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cross-origin: deixa o navegador gerenciar via cache HTTP nativo, evitando bloqueios
+  // Cross-origin: apenas os CDNs declarados no CSP entram no cache de runtime,
+  // para que Tailwind e MathJax continuem disponíveis offline.
+  if (CDN_ORIGINS.has(url.origin)) {
+    event.respondWith(
+      caches.open(RUNTIME_CACHE).then(async (cache) => {
+        const cached = await cache.match(request);
+        const network = fetch(request).then((response) => {
+          if (response && (response.status === 200 || response.type === 'opaque')) {
+            cache.put(request, response.clone());
+          }
+          return response;
+        }).catch(() => cached || Response.error());
+        return cached || network;
+      })
+    );
+    return;
+  }
+
+  // Demais origens: deixa o navegador gerenciar via cache HTTP nativo
   return;
 });
 
