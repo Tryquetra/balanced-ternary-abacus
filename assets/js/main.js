@@ -2,6 +2,8 @@
 const translations = {
   en: {
     menuTitle: "Menu",
+    themeToLight: "Switch to light theme",
+    themeToDark: "Switch to dark theme",
     menuSetunSimulator: "Setun Simulator",
     menuTernaryClock: "Synchronous ternary clock",
     menuHeiSanban: "HeiSanban",
@@ -10,6 +12,8 @@ const translations = {
   },
   pt: {
     menuTitle: "Menu",
+    themeToLight: "Mudar para tema claro",
+    themeToDark: "Mudar para tema escuro",
     menuSetunSimulator: "Simulador Setun",
     menuTernaryClock: "Relógio ternário síncrono",
     menuHeiSanban: "HeiSanban",
@@ -109,6 +113,8 @@ function setLanguage(lang) {
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
+  // Rótulos do botão de tema dependem do idioma ativo
+  updateThemeIcon(document.body.classList.contains('light') ? 'light' : 'dark');
 }
 
 // ===== Menu: abrir/fechar/toggle, clique fora, ESC, focus-trap =====
@@ -187,14 +193,14 @@ function handleKeydown(ev) {
 function updateThemeIcon(theme) {
   const themeBtn = document.getElementById('theme-toggle');
   if (!themeBtn) return;
+  const t = translations[activeLang] || translations.pt;
+  const label = theme === 'light' ? t.themeToLight : t.themeToDark;
   if (theme === 'light') {
     // Show moon icon (indicates you can switch to dark)
     themeBtn.innerHTML = `
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"></path>
       </svg>`;
-    themeBtn.setAttribute('aria-label', 'Switch to dark theme');
-    themeBtn.setAttribute('title', 'Switch to dark theme');
   } else {
     // Show sun icon (indicates you can switch to light)
     themeBtn.innerHTML = `
@@ -209,10 +215,12 @@ function updateThemeIcon(theme) {
         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
       </svg>`;
-    themeBtn.setAttribute('aria-label', 'Switch to light theme');
-    themeBtn.setAttribute('title', 'Switch to light theme');
   }
+  themeBtn.setAttribute('aria-label', label);
+  themeBtn.setAttribute('title', label);
 }
+
+const THEME_COLORS = { dark: '#111827', light: '#f8fafc' };
 
 function applyTheme(theme) {
   const body = document.body;
@@ -230,6 +238,8 @@ function applyTheme(theme) {
     body.classList.add('bg-gray-900', 'text-gray-100');
   }
   updateThemeIcon(theme);
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) themeColorMeta.setAttribute('content', THEME_COLORS[theme] || THEME_COLORS.dark);
 }
 
 function setTheme(theme) {
