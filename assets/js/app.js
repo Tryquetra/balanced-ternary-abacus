@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const decimalInput = document.getElementById('decimal-input');
     const decimalInputLabel = document.getElementById('decimal-input-label');
     const applyDecimalBtn = document.getElementById('apply-decimal-button');
+    const gameToggleBtn = document.getElementById('game-toggle');
+    const gamePanel = document.getElementById('game-panel');
+    const gameTargetLabelEl = document.getElementById('game-target-label');
+    const gameTargetEl = document.getElementById('game-target');
+    const gameLevelEl = document.getElementById('game-level');
+    const gameFeedbackEl = document.getElementById('game-feedback');
 
     // Constants for bead colors with high WCAG contrast
     const COLOR_DEFAULT = '#48bb78';
@@ -173,7 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'clear-button': 'Zerar Contas',
             'invert-button': 'Inverter Sinais (+/-)',
             'decimal-input-label': 'Insira um valor decimal (-1093 a 1093):',
-            'apply-decimal-button': 'Converter no Ábaco'
+            'apply-decimal-button': 'Converter no Ábaco',
+            'game-toggle-off': 'Modo Jogo',
+            'game-toggle-on': 'Sair do Jogo',
+            'game-target-label': 'Represente este número:',
+            'game-level': 'Nível',
+            'game-feedback-win': 'Correto!'
         },
         'en': {
             'document-title': 'Balanced Ternary Abacus: Online Base 3 Simulator',
@@ -235,7 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'clear-button': 'Reset Beads',
             'invert-button': 'Invert Signs (+/-)',
             'decimal-input-label': 'Enter a decimal value (-1093 to 1093):',
-            'apply-decimal-button': 'Plot on Abacus'
+            'apply-decimal-button': 'Plot on Abacus',
+            'game-toggle-off': 'Game Mode',
+            'game-toggle-on': 'Exit Game',
+            'game-target-label': 'Represent this number:',
+            'game-level': 'Level',
+            'game-feedback-win': 'Correct!'
         }
     };
 
@@ -385,6 +401,9 @@ document.addEventListener('DOMContentLoaded', () => {
             applyDecimalBtn.textContent = lang['apply-decimal-button'];
         }
 
+        // Rótulos do Modo Jogo seguem o idioma ativo
+        renderGameHud();
+
         // Typeset only visible sections and the math notation line if present
         const toTypeset = [];
         const tutorialVisible = !document.getElementById('tutorial-content').classList.contains('hidden');
@@ -461,6 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `<span aria-hidden="true">${terms.join(' + ')}</span>` +
               `<span class="sr-only">${spokenTerms.join(', ')}</span>`
             : '';
+
+        checkGameState();
     };
 
     // Expõe um setter global para o main.js dirigir as traduções do conteúdo
@@ -604,6 +625,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateDisplay();
     };
+
+    // ===== Modo Jogo =====
+    // Lógica pura em assets/js/game.js (global TernaryGame); aqui fica apenas a cola com o DOM.
+    const Game = typeof window !== 'undefined' ? window.TernaryGame : undefined;
+
+    const gameState = {
+        enabled: false,
+        streak: 0,
+        target: null,
+        roundLocked: false,
+        timer: null
+    };
+
+    const gameLang = () => translations[currentLang] || translations.pt;
+
+    const renderGameHud = () => {
+        const lang = gameLang();
+        if (gameToggleBtn) {
+            gameToggleBtn.textContent = lang[gameState.enabled ? 'game-toggle-on' : 'game-toggle-off'];
+            gameToggleBtn.setAttribute('aria-pressed', gameState.enabled ? 'true' : 'false');
+        }
+        if (gameTargetLabelEl) gameTargetLabelEl.textContent = lang['game-target-label'];
+        if (gameTargetEl) gameTargetEl.textContent = gameState.target === null ? '' : String(gameState.target);
+        if (gameLevelEl) {
+            const level = Game ? Game.levelForStreak(gameState.streak) : 1;
+            gameLevelEl.textContent = `${lang['game-level']} ${level} · ${gameState.streak}`;
+        }
+        if (gameFeedbackEl) {
+            gameFeedbackEl.textContent = gameState.roundLocked && gameState.target !== null
+                ? lang['game-feedback-win']
+                : '';
+        }
+    };
+
+    const startGameRound = () => {
+        if (!Game) return;
+        const level = Game.levelForStreak(gameState.streak);
+        gameState.target = Game.pickTarget(level, Math.random, numRods);
+        gameState.roundLocked = false;
+        renderGameHud();
+    };
+
+    // Chamado a cada mudança de contas (via updateDisplay)
+    const checkGameState = () => {
+        if (!gameState.enabled || gameState.roundLocked || !Game) return;
+        const total = rodValues.reduce((sum, value, index) => sum + value * POW3[index], 0);
+        if (!Game.isMatch(total, gameState.target)) return;
+
+        gameState.roundLocked = true;
+        gameState.streak += 1;
+        renderGameHud();
+
+        gameState.timer = setTimeout(() => {
+            gameState.timer = null;
+            if (!gameState.enabled) return;
+            rodValues.fill(0);
+            createAbacus();
+            startGameRound();
+        }, 700);
+    };
+
+    const setGameMode = (enabled) => {
+        gameState.enabled = Boolean(enabled);
+        if (gameState.timer) {
+            clearTimeout(gameState.timer);
+            gameState.timer = null;
+        }
+
+        document.body.classList.toggle('game-mode', gameState.enabled);
+        if (gamePanel) gamePanel.classList.toggle('hidden', !gameState.enabled);
+        if (gameToggleBtn) gameToggleBtn.setAttribute('aria-pressed', gameState.enabled ? 'true' : 'false');
+
+        if (gameState.enabled) {
+            gameState.streak = 0;
+            gameState.target = null;
+            gameState.roundLocked = true;
+            rodValues.fill(0);
+            createAbacus();
+            startGameRound();
+        } else {
+            // As contas permanecem como o usuário deixou
+            gameState.target = null;
+            gameState.roundLocked = false;
+            renderGameHud();
+        }
+    };
+
+    if (gameToggleBtn) {
+        gameToggleBtn.addEventListener('click', () => setGameMode(!gameState.enabled));
+    }
 
     updateLanguage();
     createAbacus();
