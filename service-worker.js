@@ -6,7 +6,7 @@
   Caches core app shell and provides runtime caching for other requests (e.g., CDN assets).
 */
 
-const CACHE_VERSION = 'v11';
+const CACHE_VERSION = 'v12';
 const APP_CACHE = `abaco-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 
@@ -21,6 +21,7 @@ const PRECACHE_ASSETS = [
   './',
   './assets/css/styles.css',
   './assets/js/ternary-math.js',
+  './assets/js/game.js',
   './assets/js/app.js',
   './assets/js/main.js',
   './assets/triquetra.webp',

@@ -60,7 +60,7 @@
   <link rel="alternate" hreflang="x-default" href="https://bta.robsoncassiano.software/">
 
   <script src="https://cdn.tailwindcss.com" defer></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261029">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261030">
 
   <!-- JSON-LD Markup -->
   <script type="application/ld+json">
@@ -299,6 +299,14 @@
     <p id="description" class="text-center text-gray-400 mb-8">Clique nas contas para somar (+1) ou subtrair (-1) e ver
       a representação matemática.</p>
 
+    <!-- Modo Jogo: alvo e progresso -->
+    <section id="game-panel" class="hidden" aria-label="Modo Jogo">
+      <p id="game-target-label" class="text-center text-gray-300 text-sm">Represente este número:</p>
+      <div id="game-target" class="text-center text-4xl font-bold text-teal-300 my-2">0</div>
+      <p id="game-level" class="text-center text-gray-400 text-sm"></p>
+      <p id="game-feedback" class="text-center text-green-400 font-semibold min-h-[1.5rem]" aria-live="polite"></p>
+    </section>
+
     <div class="abacus flex justify-center p-4 rounded-xl relative" aria-label="Simulador de Ábaco">
       <div class="center-bar"></div>
       <div class="abacus-rods flex" id="abacus-rods-container">
@@ -318,6 +326,8 @@
           class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Zerar Contas</button>
         <button id="invert-button"
           class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Inverter Sinais (+/-)</button>
+        <button id="game-toggle" type="button" aria-pressed="false"
+          class="text-xs px-2 py-1 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-100 border border-gray-500">Modo Jogo</button>
       </div>
       <div id="total-value" class="abacus-value text-4xl" aria-live="polite">0</div>
       <div id="math-notation" class="text-gray-400 mt-4 text-sm font-mono min-h-[1.25rem]" aria-live="polite"></div>
@@ -552,9 +562,10 @@
     <p class="mt-1">Live Long and Prosper 🖖🏻</p>
   </footer>
 
-  <script src="assets/js/ternary-math.js?v=20261029" defer></script>
-  <script src="assets/js/app.js?v=20261029" defer></script>
-  <script src="assets/js/main.js?v=20261029" defer></script>
+  <script src="assets/js/ternary-math.js?v=20261030" defer></script>
+  <script src="assets/js/game.js?v=20261030" defer></script>
+  <script src="assets/js/app.js?v=20261030" defer></script>
+  <script src="assets/js/main.js?v=20261030" defer></script>
 </body>
 
 </html>

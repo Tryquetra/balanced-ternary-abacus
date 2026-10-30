@@ -444,6 +444,18 @@ body.light .lang-btn.active {
   display: none;
 }
 
+/* Modo Jogo: oculta os visores numéricos, mantendo o estado nas contas */
+body.game-mode #total-title,
+body.game-mode #total-value,
+body.game-mode #math-notation,
+body.game-mode #decimal-form {
+  display: none;
+}
+
+#game-target {
+  font-variant-numeric: tabular-nums;
+}
+
 /* Responsividade básica */
 @media (max-width: 480px) {
   .menu-dropdown {
