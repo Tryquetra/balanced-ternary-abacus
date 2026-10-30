@@ -58,8 +58,10 @@
     }
 
     /**
-     * Sorteia um alvo com exatamente min(level, numRods) trits não nulos,
-     * em hastes distintas e com sinal aleatório por haste.
+     * Sorteia um alvo nas min(level, numRods) hastes menos significativas
+     * (3^0 até 3^(count-1)), com sinal aleatório em cada uma.
+     * Cada nível acrescenta exatamente uma haste, então a magnitude máxima
+     * cresce de forma monotônica: |alvo| <= (3^level - 1) / 2.
      * @param {number} level
      * @param {() => number} [rng=Math.random]
      * @param {number} [numRods=7]
@@ -72,21 +74,9 @@
         const count = Math.min(Math.max(requested, 1), Math.min(MAX_LEVEL, rods));
         const random = typeof rng === 'function' ? rng : Math.random;
 
-        // Fisher-Yates parcial: escolhe count hastes distintas
-        const indices = [];
-        for (let i = 0; i < rods; i++) {
-            indices.push(i);
-        }
-
         const trits = new Array(rods).fill(0);
-        for (let k = 0; k < count; k++) {
-            const span = rods - k;
-            const offset = Math.min(span - 1, Math.max(0, Math.floor(random() * span)));
-            const j = k + offset;
-            const tmp = indices[k];
-            indices[k] = indices[j];
-            indices[j] = tmp;
-            trits[indices[k]] = random() < 0.5 ? -1 : 1;
+        for (let i = 0; i < count; i++) {
+            trits[i] = random() < 0.5 ? -1 : 1;
         }
 
         return totalFromTrits(trits, getPowersOf3(rods));

@@ -92,6 +92,7 @@
             "Direct decimal input to abacus bead positioning",
             "Interactive addition and subtraction tutorials",
             "Accessible keyboard navigation (WCAG 2.1)",
+            "Game mode with a difficulty ramp",
             "Multi-language support (PT-BR/EN-US)",
             "PWA support for offline use"
           ]
@@ -302,7 +303,7 @@
     <!-- Modo Jogo: alvo e progresso -->
     <section id="game-panel" class="hidden" aria-label="Modo Jogo">
       <p id="game-target-label" class="text-center text-gray-300 text-sm">Represente este número:</p>
-      <div id="game-target" class="text-center text-4xl font-bold text-teal-300 my-2">0</div>
+      <div id="game-target" class="text-center text-4xl font-bold text-teal-300 my-2" aria-live="polite">0</div>
       <p id="game-level" class="text-center text-gray-400 text-sm"></p>
       <p id="game-feedback" class="text-center text-green-400 font-semibold min-h-[1.5rem]" aria-live="polite"></p>
     </section>

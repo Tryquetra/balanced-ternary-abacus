@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'game-toggle-off': 'Modo Jogo',
             'game-toggle-on': 'Sair do Jogo',
             'game-target-label': 'Represente este número:',
+            'game-panel-label': 'Modo Jogo',
             'game-level': 'Nível',
             'game-feedback-win': 'Correto!'
         },
@@ -250,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'game-toggle-off': 'Game Mode',
             'game-toggle-on': 'Exit Game',
             'game-target-label': 'Represent this number:',
+            'game-panel-label': 'Game Mode',
             'game-level': 'Level',
             'game-feedback-win': 'Correct!'
         }
@@ -647,6 +649,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameToggleBtn.setAttribute('aria-pressed', gameState.enabled ? 'true' : 'false');
         }
         if (gameTargetLabelEl) gameTargetLabelEl.textContent = lang['game-target-label'];
+        if (gamePanel) gamePanel.setAttribute('aria-label', lang['game-panel-label']);
         if (gameTargetEl) gameTargetEl.textContent = gameState.target === null ? '' : String(gameState.target);
         if (gameLevelEl) {
             const level = Game ? Game.levelForStreak(gameState.streak) : 1;

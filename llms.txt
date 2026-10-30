@@ -21,9 +21,11 @@ V = \sum_{i=0}^{n} t_i \cdot 3^i, onde t_i \in \{-1, 0, 1\}
 - `index.html`: Interface estática com semântica HTML5 e anotações Schema.org JSON-LD.
 - `assets/js/ternary-math.js`: Módulo de lógica aritmética pura com conversões e adições balanceadas.
 - `assets/js/app.js`: Gerenciamento de estado do ábaco e interação DOM.
+- `assets/js/game.js`: Módulo do modo jogo, com geração de alvos por rampa de dificuldade e validação da representação.
 - `assets/js/main.js`: Controle de tema, alternância de idiomas e registro de PWA.
 - `assets/css/styles.css`: Regras de estilo ergonômico e estados visuais das contas.
 - `tests/ternary-math.test.js`: Suíte de validação e testes de estresse executados com Bun.
+- `tests/game.test.js`: Testes da rampa de dificuldade e da validação de alvos do modo jogo.
 
 ## Documentação Completa
 Para ler o arquivo de contexto expandido, acesse [/llms-full.txt](https://bta.robsoncassiano.software/llms-full.txt).

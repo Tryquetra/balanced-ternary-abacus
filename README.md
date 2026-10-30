@@ -36,6 +36,7 @@ This repository hosts an interactive implementation of the Hei-San-Ban, serving 
 - Decimal total and MathJax-rendered notation
 - Bilingual content (PT/EN) with a segmented control in the top bar
 - Soroban-inspired tips and foldable tutorial/add/subtract sections
+- Game mode with a difficulty ramp: represent the shown number, level up on each hit
 - PWA with offline support after the first visit
 
 Live Long and Prosper 🖖🏻
@@ -63,6 +64,7 @@ Este repositório contém uma implementação interativa do 平三盤, servindo 
 - Exibição do total em decimal e notação matemática com LaTeX
 - Conteúdo bilíngue (PT/EN) com controle segmentado na barra superior
 - Dicas inspiradas no Soroban e seções dobráveis de tutorial/como somar/como subtrair
+- Modo jogo com rampa de dificuldade: represente o número exibido e suba de nível a cada acerto
 - PWA com suporte offline após a primeira visita
 
 Vida Longa e Próspera 🖖🏻

@@ -41,7 +41,23 @@ describe("TernaryGame.pickTarget", () => {
         }
     });
 
-    test("usa hastes distintas e sinais nos dois sentidos", () => {
+    test("nível ocupa as hastes menos significativas e respeita o teto de magnitude", () => {
+        for (let level = 1; level <= 7; level++) {
+            const rng = seededRng(500 + level);
+            const expectedRods = Array.from({ length: level }, (_, k) => k);
+            for (let i = 0; i < 25; i++) {
+                const target = TernaryGame.pickTarget(level, rng);
+                const trits = TernaryMath.decimalToBalanced(target, 7);
+                const activeRods = trits
+                    .map((trit, rod) => (trit !== 0 ? rod : -1))
+                    .filter((rod) => rod >= 0);
+                expect(activeRods).toEqual(expectedRods);
+                expect(Math.abs(target)).toBeLessThanOrEqual((3 ** level - 1) / 2);
+            }
+        }
+    });
+
+    test("sorteia sinais nos dois sentidos", () => {
         const rng = seededRng(7);
         let sawPositive = false;
         let sawNegative = false;

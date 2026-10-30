@@ -52,7 +52,14 @@ Em 1958, na Universidade Estatal de Moscou, Nikolai Brusentsov e Sergei Sobolev 
   - `addTrits(a, b, numRods)`: Executa adição com vai-um balanceado.
   - `getCapacity(numRods)`: Limites mínimo e máximo representáveis.
 - `assets/js/app.js`: Renderização de contas ativas, rótulos de acessibilidade ARIA e visor de fórmulas.
+- `assets/js/game.js`: Modo jogo, com geração de alvos e validação da representação.
+  - `pickTarget(level, rng, numRods)`: Alvo com `level` trits não nulos nas hastes menos significativas.
+  - `isMatch(total, target)`: Igualdade estrita entre o total do ábaco e o alvo da rodada.
+  - `levelForStreak(streak)`: Rampa de dificuldade de 1 a 7.
 - `assets/js/main.js`: Troca de idiomas dinâmico, alternador de tema e ciclo de vida do Service Worker.
 - `service-worker.js`: Cache offline resiliente; a URL exata dos ativos é a chave, então o sufixo `?v=` do `index.html` invalida o cache. Scripts de CDN (Tailwind, MathJax) ficam no cache de runtime.
 - `server.js`: Servidor local seguro com validação canônica de caminhos com Bun.
 - `tests/ternary-math.test.js`: Casos de teste rigorosos cobrindo operações fundamentais e limites extremos.
+
+## 5. Modo Jogo
+O modo jogo exibe um número alvo e pede a representação correta no ábaco. Cada rodada parte das contas zeradas e a checagem é instantânea: como a representação de um valor em 7 hastes é única, igualdade numérica equivale a resposta completa. A cada acerto o nível sobe e o alvo ganha uma haste significativa, começando em ±1 (3^0) e chegando a 1093 (3^6). Durante o modo, o visor decimal, a notação polinomial e o conversor decimal ficam ocultos para não revelar a resposta.
